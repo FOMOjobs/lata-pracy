@@ -1,0 +1,14 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local configuration and scratch files
+.env*
+!.env.example
+work/
+.DS_Store
