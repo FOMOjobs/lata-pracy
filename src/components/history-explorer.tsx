@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useState } from "react";
+import { useId } from "react";
 import {
   ArrowRight,
   Check,
@@ -10,6 +10,7 @@ import {
   Plus,
 } from "lucide-react";
 import { createCasePlan } from "@/lib/case-plan";
+import { useCaseSession } from "@/lib/case-session";
 import { formatDateRange, formatNumber } from "@/lib/history";
 import type { Scenario, WorkPeriod } from "@/lib/types";
 import { CoverageBreakdown } from "./coverage-breakdown";
@@ -21,7 +22,8 @@ export function HistoryExplorer({
   scenario: Scenario;
   onInspect: (period: WorkPeriod) => void;
 }) {
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const { state, togglePeriod } = useCaseSession(scenario);
+  const selectedIds = state.selectedPeriodIds;
   const id = useId();
   const candidates = scenario.periods.filter(
     (period) => period.status === "potential",
@@ -30,6 +32,12 @@ export function HistoryExplorer({
     (period) => period.status === "included",
   );
   const plan = createCasePlan(scenario, selectedIds);
+  const missingDocument = plan.documents.find(
+    (document) => state.documentAvailability[document.id] === "missing",
+  );
+  const uncheckedDocument = plan.documents.find(
+    (document) => state.documentAvailability[document.id] !== "have",
+  );
   const maximum =
     createCasePlan(
       scenario,
@@ -40,9 +48,9 @@ export function HistoryExplorer({
       <div className="explorer-heading">
         <div>
           <span className="eyebrow">
-            <GitCompareArrows size={15} aria-hidden="true" /> ZOBACZ RÓŻNICĘ
+            <GitCompareArrows size={15} aria-hidden="true" /> TWÓJ NASTĘPNY KROK
           </span>
-          <h2 id={`${id}-title`}>A jeśli wrócisz do wcześniejszej pracy?</h2>
+          <h2 id={`${id}-title`}>Sprawdź wcześniejszy okres pracy.</h2>
           <p>
             Włącz okres i zobacz, ile dni znajduje się poza podstawą tego
             przykładu.
@@ -65,13 +73,7 @@ export function HistoryExplorer({
                 <input
                   type="checkbox"
                   checked={selectedIds.includes(period.id)}
-                  onChange={() =>
-                    setSelectedIds((current) =>
-                      current.includes(period.id)
-                        ? current.filter((item) => item !== period.id)
-                        : [...current, period.id],
-                    )
-                  }
+                  onChange={() => togglePeriod(period.id)}
                 />
                 <span>
                   <strong>{period.title}</strong>
@@ -127,6 +129,34 @@ export function HistoryExplorer({
           </p>
         </div>
       </div>
+      <dl className="explorer-facts">
+        <div>
+          <dt>Co wiemy</dt>
+          <dd>
+            {selectedIds.length
+              ? `${formatNumber(plan.additionalDays)} dni wybranych okresów jest poza podstawą. Każdy dzień liczymy raz.`
+              : "Nie wybrano okresu do porównania."}
+          </dd>
+        </div>
+        <div>
+          <dt>Co trzeba ustalić</dt>
+          <dd>
+            Warunki zaliczenia i dokumenty nie zostały prawnie zweryfikowane.
+          </dd>
+        </div>
+        <div>
+          <dt>Co zrobić teraz</dt>
+          <dd>
+            {missingDocument
+              ? `Uzupełnij brak: ${missingDocument.title}. Instrukcję znajdziesz przy dokumencie.`
+              : uncheckedDocument
+                ? `Zacznij od dokumentu: ${uncheckedDocument.title}.`
+                : selectedIds.length
+                  ? "Przejrzyj wybrany zakres i przygotuj projekt do rozmowy z pracodawcą."
+                  : "Wybierz co najmniej jeden wcześniejszy okres."}
+          </dd>
+        </div>
+      </dl>
       {plan.periods.length > 0 && (
         <details className="explorer-explanation">
           <summary>Skąd bierze się ta różnica?</summary>
@@ -145,10 +175,19 @@ export function HistoryExplorer({
       )}
       <div className="explorer-footer">
         <p>To symulacja na fikcyjnych danych, nie potwierdzenie stażu.</p>
-        <Link className="text-link" href={`/sprawa/${scenario.id}`}>
-          Przygotuj sprawę krok po kroku{" "}
-          <ArrowRight size={16} aria-hidden="true" />
-        </Link>
+        {plan.periods.length ? (
+          <Link
+            className="button button-primary"
+            href={`/sprawa/${scenario.id}`}
+          >
+            Przygotuj sprawę krok po kroku{" "}
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        ) : (
+          <span className="explorer-hint">
+            Wybierz okres, aby przygotować sprawę.
+          </span>
+        )}
       </div>
     </section>
   );

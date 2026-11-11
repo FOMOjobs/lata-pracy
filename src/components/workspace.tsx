@@ -26,7 +26,6 @@ import {
   Plus,
   Route,
   ShieldCheck,
-  Sparkles,
 } from "lucide-react";
 import { scenarios } from "@/data/scenarios";
 import {
@@ -43,6 +42,8 @@ import { LegalInfo } from "./legal-info";
 import { Modal } from "./modal";
 import { StatusBadge } from "./status-badge";
 import { HistoryExplorer } from "./history-explorer";
+import { DocumentPreparation } from "./document-preparation";
+import { useCaseSession } from "@/lib/case-session";
 
 const workTypeLabels = {
   employment: "Umowa o pracę",
@@ -75,18 +76,13 @@ export function Workspace({
   const router = useRouter();
   const [documentsOpen, setDocumentsOpen] = useState(false);
   const [selectedPeriod, setSelectedPeriod] = useState<WorkPeriod | null>(null);
-  const [checked, setChecked] = useState<string[]>([]);
+  const { state: caseState, setDocumentAvailability } =
+    useCaseSession(scenario);
   const [downloaded, setDownloaded] = useState(false);
   const summary = summarizeHistory(scenario.periods);
   const documents = scenario.periods.flatMap((period) =>
-    period.documents.map((document) => ({ ...document, period: period.title })),
+    period.documents.map((document) => ({ document, period })),
   );
-  const toggleDocument = (id: string) =>
-    setChecked((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id],
-    );
 
   function downloadSummary() {
     const text = [
@@ -152,22 +148,6 @@ export function Workspace({
             <FileCheck2 size={19} aria-hidden="true" /> Lista dokumentów
           </button>
         </nav>
-        <div className="sidebar-story">
-          <Route size={30} strokeWidth={1.2} aria-hidden="true" />
-          <h2>
-            Każdy etap
-            <br />
-            ma znaczenie.
-          </h2>
-          <p>
-            Przyjrzyj się swojej
-            <br />
-            drodze zawodowej.
-          </p>
-          <Link href="/scenariusze">
-            Poznaj inne historie <ArrowUpRight size={16} aria-hidden="true" />
-          </Link>
-        </div>
         <div className="sidebar-bottom">
           <LegalInfo label="Zasady i źródła" className="sidebar-help" />
           <span>
@@ -244,13 +224,15 @@ export function Workspace({
                   : "Kliknij wybrany okres, żeby zobaczyć warunki i dokumenty do sprawdzenia."}
               </p>
             </div>
-            <button
-              className="button button-outline download-button"
-              onClick={downloadSummary}
-            >
-              <ArrowDownToLine size={17} aria-hidden="true" /> Pobierz
-              podsumowanie <span className="file-type">TXT</span>
-            </button>
+            <details className="workspace-more">
+              <summary>Więcej</summary>
+              <div>
+                <button className="text-link" onClick={downloadSummary}>
+                  <ArrowDownToLine size={16} aria-hidden="true" /> Pobierz
+                  podsumowanie całej historii TXT
+                </button>
+              </div>
+            </details>
           </div>
           <div className="demo-notice">
             <ShieldCheck size={18} aria-hidden="true" />
@@ -262,7 +244,15 @@ export function Workspace({
           </div>
           {screen === "dashboard" ? (
             <>
-              <div className="stats-grid">
+              <HistoryExplorer
+                scenario={scenario}
+                onInspect={setSelectedPeriod}
+              />
+              <p className="categories-caption">
+                Trzy kategorie całej fikcyjnej historii — niezależnie od wyboru
+                w porównaniu.
+              </p>
+              <div className="stats-grid stats-compact">
                 {(["included", "potential", "review"] as const).map(
                   (status) => {
                     const Icon =
@@ -289,16 +279,12 @@ export function Workspace({
                         </div>
                         <h2>{statusMeta[status].label}</h2>
                         <span className="stat-value">
-                          <small>ok.</small>{" "}
-                          {approximateDuration(summary.days[status])}
+                          {formatNumber(summary.days[status])}{" "}
+                          <small>dni</small>
                         </span>
                         <span className="stat-exact">
-                          {formatNumber(summary.days[status])}{" "}
-                          {status === "included"
-                            ? "dni w podstawie przykładu"
-                            : "dodatkowych, unikalnych dni"}
+                          ok. {approximateDuration(summary.days[status])}
                         </span>
-                        <p>{statusMeta[status].description}</p>
                       </article>
                     );
                   },
@@ -308,11 +294,7 @@ export function Workspace({
                 Lata i miesiące są orientacyjne. Dokładny wynik pokazujemy w
                 dniach. <LegalInfo label="Sposób liczenia" />
               </p>
-              <HistoryExplorer
-                scenario={scenario}
-                onInspect={setSelectedPeriod}
-              />
-              <div className="dashboard-columns">
+              <div className="dashboard-history">
                 <section className="panel history-preview">
                   <div className="panel-heading">
                     <div>
@@ -368,54 +350,7 @@ export function Workspace({
                     </span>
                   </div>
                 </section>
-                <aside className="next-step-card">
-                  <span className="next-step-icon">
-                    <FileCheck2
-                      size={27}
-                      strokeWidth={1.5}
-                      aria-hidden="true"
-                    />
-                  </span>
-                  <span className="eyebrow">TWÓJ NASTĘPNY KROK</span>
-                  <h2>
-                    Dobra historia
-                    <br />
-                    potrzebuje dokumentów.
-                  </h2>
-                  <p>{scenario.lesson}</p>
-                  <Link
-                    className="button button-primary"
-                    href={`/sprawa/${scenario.id}`}
-                  >
-                    Przygotuj sprawę krok po kroku{" "}
-                    <ArrowRight size={17} aria-hidden="true" />
-                  </Link>
-                  <button
-                    className="text-link next-step-documents"
-                    onClick={() => setDocumentsOpen(true)}
-                  >
-                    Zobacz listę dokumentów{" "}
-                    <ChevronRight size={14} aria-hidden="true" />
-                  </button>
-                  <span className="next-step-small">
-                    <LockKeyhole size={13} aria-hidden="true" /> Niczego nie
-                    przesyłasz do aplikacji
-                  </span>
-                </aside>
               </div>
-              <section className="insight-banner">
-                <span>
-                  <Sparkles size={22} aria-hidden="true" />
-                </span>
-                <div>
-                  <h2>Twoje doświadczenie ma znaczenie.</h2>
-                  <p>
-                    Zlecenie i własna działalność mogą być częścią stażu.
-                    Zacznij od sprawdzenia warunków, zamiast od zgadywania.
-                  </p>
-                </div>
-                <LegalInfo label="Poznaj zasady" className="text-link" />
-              </section>
             </>
           ) : (
             <Timeline scenario={scenario} onSelect={setSelectedPeriod} />
@@ -494,27 +429,17 @@ export function Workspace({
             przygotowania
           </h3>
           <p className="small muted">
-            Robocza lista w tym widoku. Zaznaczenie nie potwierdza dokumentu ani
-            prawa do zaliczenia okresu.
+            Dostępność jest Twoją deklaracją w przykładzie. Nie potwierdza
+            treści dokumentów ani prawa do zaliczenia okresu.
           </p>
-          <div className="document-list">
-            {selectedPeriod.documents.map((document) => (
-              <label
-                className={`document-check ${checked.includes(document.id) ? "is-checked" : ""}`}
-                key={document.id}
-              >
-                <input
-                  type="checkbox"
-                  checked={checked.includes(document.id)}
-                  onChange={() => toggleDocument(document.id)}
-                />
-                <span>
-                  <strong>{document.title}</strong>
-                  <small>{document.hint}</small>
-                </span>
-              </label>
-            ))}
-          </div>
+          <DocumentPreparation
+            documents={selectedPeriod.documents.map((document) => ({
+              document,
+              period: selectedPeriod,
+            }))}
+            availability={caseState.documentAvailability}
+            onAvailabilityChange={setDocumentAvailability}
+          />
           {selectedPeriod.legalTodo && (
             <div className="todo-note">
               <CircleHelp size={20} aria-hidden="true" />
@@ -534,43 +459,16 @@ export function Workspace({
           description="Lista pomocnicza dla wybranego, fikcyjnego scenariusza. Nie wgrywaj żadnych plików."
           onClose={() => setDocumentsOpen(false)}
         >
-          <div className="checklist-progress">
-            <span>
-              <FileCheck2 size={19} aria-hidden="true" /> Robocza lista
-              przygotowań
-            </span>
-            <strong aria-live="polite">
-              {checked.length} / {documents.length}
-            </strong>
-          </div>
-          <div className="checklist-progress-track">
-            <span
-              style={{ width: `${(checked.length / documents.length) * 100}%` }}
-            />
-          </div>
           <p className="small muted">
-            Oznaczenia pozostają tylko w bieżącym widoku i znikną po opuszczeniu
-            strony. Nie zmieniają statusów ani wyniku demonstracji.
+            Wybory pozostają w tej karcie przeglądarki także po przejściu do
+            przygotowania sprawy. „Mam — do sprawdzenia” jest deklaracją; nie
+            zmienia statusu okresu ani liczby dni.
           </p>
-          <div className="document-list">
-            {documents.map((document) => (
-              <label
-                className={`document-check ${checked.includes(document.id) ? "is-checked" : ""}`}
-                key={document.id}
-              >
-                <input
-                  type="checkbox"
-                  checked={checked.includes(document.id)}
-                  onChange={() => toggleDocument(document.id)}
-                />
-                <span>
-                  <small className="document-period">{document.period}</small>
-                  <strong>{document.title}</strong>
-                  <small>{document.hint}</small>
-                </span>
-              </label>
-            ))}
-          </div>
+          <DocumentPreparation
+            documents={documents}
+            availability={caseState.documentAvailability}
+            onAvailabilityChange={setDocumentAvailability}
+          />
           <div className="notice">
             <BookOpen size={21} aria-hidden="true" />
             <p>

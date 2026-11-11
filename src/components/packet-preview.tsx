@@ -1,17 +1,19 @@
 import { Check, FileText, ShieldCheck } from "lucide-react";
-import { createCasePlan } from "@/lib/case-plan";
+import { createCasePlan, describeDocumentAvailability } from "@/lib/case-plan";
 import { formatDateRange, formatNumber } from "@/lib/history";
 import { legalSources } from "@/lib/legal";
-import type { Scenario } from "@/lib/types";
+import type { DocumentAvailability, Scenario } from "@/lib/types";
 
 export function PacketPreview({
   scenario,
   selectedIds,
   selectedDocumentIds,
+  documentAvailability = {},
 }: {
   scenario: Scenario;
   selectedIds: string[];
   selectedDocumentIds: string[];
+  documentAvailability?: Record<string, DocumentAvailability>;
 }) {
   const plan = createCasePlan(scenario, selectedIds);
   const documents = plan.documents.filter((document) =>
@@ -105,7 +107,14 @@ export function PacketPreview({
             {documents.map((document) => (
               <li key={document.id}>
                 <span className="packet-empty-box" aria-hidden="true" />
-                {document.title}
+                <span>
+                  <strong>{document.title}</strong>
+                  <small className="packet-document-status">
+                    {describeDocumentAvailability(
+                      documentAvailability[document.id],
+                    )}
+                  </small>
+                </span>
               </li>
             ))}
           </ul>
@@ -116,7 +125,8 @@ export function PacketPreview({
         )}
         <p className="packet-small">
           To zakres wybrany przez osobę korzystającą z demonstracji, nie
-          potwierdzenie posiadania ani kompletności dokumentów.
+          potwierdzenie posiadania ani kompletności dokumentów. Dostępność to
+          deklaracja w przykładzie; dokumentów nie zweryfikowano.
         </p>
       </section>
       <section className="packet-sources">

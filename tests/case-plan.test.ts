@@ -125,4 +125,32 @@ describe("warunkowe porównanie i zakres pakietu", () => {
     );
     expect(createCaseDraft(scenarios[2], [])).toBe("");
   });
+  it("zachowuje deklarację braku w wybranym zakresie i nie ujawnia niewybranych dokumentów", () => {
+    const availability = {
+      "ola-contract-zus": "missing" as const,
+      "ola-contract-agreement": "have" as const,
+    };
+    const draft = createCaseDraft(
+      scenarios[2],
+      ["ola-contract"],
+      ["ola-contract-zus"],
+      availability,
+    );
+    expect(draft).toContain(
+      "Zaświadczenie o ubezpieczeniu z tytułu zlecenia (brak dokumentu — do uzyskania)",
+    );
+    expect(draft).not.toContain("Umowa i potwierdzenie wykonywania zlecenia");
+    expect(draft).toContain("unikalne dni poza podstawą wynoszą 181");
+    expect(draft).toContain(
+      "Nie zweryfikowano plików ani kompletności dowodów",
+    );
+  });
+  it("określa mam jako deklarację i zachowuje brak wiedzy jako osobny stan", () => {
+    const draft = createCaseDraft(scenarios[0], ["kasia-contract"], undefined, {
+      "kasia-contract-zus": "have",
+    });
+    expect(draft).toContain("deklaracja: mam — dokument do sprawdzenia");
+    expect(draft).toContain("dostępność do ustalenia");
+    expect(draft).not.toContain("dokumenty zweryfikowane");
+  });
 });

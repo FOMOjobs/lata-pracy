@@ -1,6 +1,16 @@
 import { formatDateRange, summarizeHistory } from "./history";
 import { legalSources } from "./legal";
-import type { Scenario } from "./types";
+import type { DocumentAvailability, Scenario } from "./types";
+
+export function describeDocumentAvailability(
+  value: DocumentAvailability = "unknown",
+) {
+  return {
+    unknown: "dostępność do ustalenia",
+    missing: "brak dokumentu — do uzyskania",
+    have: "deklaracja: mam — dokument do sprawdzenia",
+  }[value];
+}
 
 /** Compare only explicitly selected potential periods against the demo baseline.
  * Review periods never become eligible through a UI selection. */
@@ -30,6 +40,7 @@ export function createCaseDraft(
   scenario: Scenario,
   selectedIds: string[],
   selectedDocumentIds?: string[],
+  documentAvailability: Record<string, DocumentAvailability> = {},
 ) {
   const plan = createCasePlan(scenario, selectedIds);
   if (plan.periods.length === 0) return "";
@@ -56,8 +67,12 @@ export function createCaseDraft(
     "",
     "Wybrane nazwy dokumentów do przygotowania (żaden plik nie został dołączony):",
     ...(documents.length
-      ? documents.map((document) => `• ${document.title}`)
+      ? documents.map(
+          (document) =>
+            `• ${document.title} (${describeDocumentAvailability(documentAvailability[document.id])})`,
+        )
       : ["• Nie wybrano dokumentów — projekt wymaga uzupełnienia."]),
+    "Dostępność dokumentów to deklaracje w fikcyjnym przykładzie. Nie zweryfikowano plików ani kompletności dowodów.",
     "",
     `W tym przykładzie unikalne dni poza podstawą wynoszą ${plan.additionalDays}. To zestawienie kalendarzowe, nie prawne potwierdzenie stażu ani uprawnień. Nakładające się dni nie zostały policzone ponownie.`,
     "Proszę o wskazanie, czy potrzebne są dodatkowe dokumenty lub wyjaśnienia.",

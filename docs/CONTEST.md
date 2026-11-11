@@ -8,21 +8,23 @@ Informacje o konkursie sprawdzono 11.11.2026 na [stronie organizatora](https://m
 
 ## Co pokazujemy
 
-| Obszar oceny wskazany przez organizatora | Rozwiązanie w projekcie                                                                          | Dowód lub brakująca weryfikacja                                                 |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| Prostota i wygoda                        | Wybór okresu → zakres nazw dokumentów → podgląd → potwierdzenie symulacji                        | `/sprawa/ola`, testy pełnej ścieżki                                             |
-| Jedna kompletna sprawa                   | Użytkownik kończy z kartą oraz projektem wiadomości, które może skopiować, pobrać lub wydrukować | Funkcjonalna ścieżka; druk do sprawdzenia w przeglądarce                        |
-| Prywatność i kontrola                    | Użytkownik wybiera okresy i nazwy dokumentów; ten sam zakres trafia do karty i wiadomości        | Testy pomijania niewybranych nazw; brak uploadu i rzeczywistej wysyłki          |
-| Dostępność                               | Prosty język, etykiety, klawiatura, jawny fokus, widok listy, ograniczony ruch                   | Elementy zaimplementowane; audyt czytnika i kontrastu pozostaje do wykonania    |
-| Zrozumiały efekt                         | Przełączane porównanie i dokładne rozbicie nakładających się dat                                 | Ola: 1126 dni zlecenia = 945 w podstawie + 181 poza podstawą                    |
-| Link bez logowania                       | Kod aplikacji nie wymaga kont, API ani usług zewnętrznych do przejścia demonstracji              | **Publiczny hosting i test incognito wymagają przygotowania przed zgłoszeniem** |
-| Polskie modele / technologie             | Autorski projekt i interfejs po polsku; obecna wersja nie wywołuje PLLuM ani Bielika             | W zgłoszeniu nie deklarować działającej integracji z modelem                    |
+| Obszar oceny wskazany przez organizatora | Rozwiązanie w projekcie                                                                                                                    | Dowód lub brakująca weryfikacja                                                                |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| Prostota i wygoda                        | Jedno prowadzące porównanie; wybór okresu → dostępność i zakres → podgląd karty → przygotowanie projektu                                   | `/sprawa/ola`; wybory wspólne dla ekranów i zachowane w sesji karty                            |
+| Jedna kompletna sprawa                   | Brak dokumentu prowadzi do instrukcji i źródła; po potwierdzeniu użytkownik otrzymuje kartę, a pod dodatkowym rozwinięciem wiadomość i TXT | Funkcjonalna ścieżka; druk i przebieg z użytkownikami do sprawdzenia                           |
+| Prywatność i kontrola                    | Dostępność jest deklaracją, a włączenie nazwy do pakietu osobnym wyborem; ten sam zakres i braki trafiają do karty i wiadomości            | Zapis sesji obejmuje wyłącznie identyfikatory i znaczniki; brak uploadu i rzeczywistej wysyłki |
+| Dostępność                               | Prosty język, etykiety, klawiatura, jawny fokus, widok listy, ograniczony ruch                                                             | Elementy zaimplementowane; audyt czytnika i kontrastu pozostaje do wykonania                   |
+| Zrozumiały efekt                         | Przełączane porównanie i dokładne rozbicie nakładających się dat                                                                           | Ola: 1126 dni zlecenia = 945 w podstawie + 181 poza podstawą                                   |
+| Link bez logowania                       | Kod aplikacji nie wymaga kont, API ani usług zewnętrznych do przejścia demonstracji                                                        | **Publiczny hosting i test incognito wymagają przygotowania przed zgłoszeniem**                |
+| Polskie modele / technologie             | Autorski projekt i interfejs po polsku; obecna wersja nie wywołuje PLLuM ani Bielika                                                       | W zgłoszeniu nie deklarować działającej integracji z modelem                                   |
 
 To mapowanie funkcji do kierunków opisanych na stronie konkursu, nie oficjalny system punktowy ani wynik porównawczy z innymi uczestnikami.
 
 ## Co wykorzystano z raportu badawczego
 
-Przekazany raport pomógł wybrać trzy założenia: aktualny problem stażu, prowadzenie od odkrycia do działania i świadomy wybór zakresu informacji. Wdrożono je w porównaniu, demonstracji i przygotowaniu pakietu.
+Przekazany raport pomógł wybrać trzy założenia: aktualny problem stażu, prowadzenie od odkrycia do działania i świadomy wybór zakresu informacji. Wdrożono je w porównaniu, demonstracji i przygotowaniu pakietu. Doprecyzowana ścieżka obsługuje także brak dowodu: wskazuje brakujący dokument, konkretny krok i źródło, bez zmieniania prawnego statusu okresu.
+
+Domyślnie potencjalne okresy i nazwy ich dokumentów są wybrane, a dostępność ma stan „Nie wiem jeszcze”. Nie przedstawiamy takiej wartości domyślnej jako odnalezienia lub weryfikacji dokumentu. `sessionStorage` zachowuje wybory w tej samej karcie; nie przechowuje rzeczywistych dokumentów ani treści wiadomości.
 
 Oceny typu „9,7/10” są opinią autora raportu. Jego wewnętrzne identyfikatory cytowań nie są odsyłaczami do publikacji. Statystyki, informacje o usługach, 24-miesięcznych terminach i deklaracje o zastosowaniu modeli wymagają osobnego sprawdzenia, zanim trafią do publicznego opisu. Prototyp nie używa tych liczb do obliczeń ani nie przyznaje prawa do urlopu.
 
@@ -35,7 +37,7 @@ Nie deklarujemy pomiaru przewagi nad prototypem organizatora: nie przeprowadzono
 ## Przed wysłaniem
 
 1. Przygotować stabilny publiczny adres HTTPS bez bramki logowania, działający do ogłoszenia wyników; sprawdzić link w trybie prywatnym.
-2. Przejść `/demo` → `/sprawa/ola` na telefonie, klawiaturą i z powiększeniem. Sprawdzić wydruk i polskie znaki w pliku.
+2. Przejść `/demo` → `/sprawa/ola` na telefonie, klawiaturą i z powiększeniem. Sprawdzić brak dokumentu, zachowanie wyborów po nawigacji i odświeżeniu, podgląd przed potwierdzeniem, wydruk i polskie znaki w pliku.
 3. Dać 3–5 osobom zadanie: „sprawdź zlecenie Oli i przygotuj projekt pakietu”. Zmierzyć rzeczywisty czas, błędy i zrozumienie warunkowego wyniku. Nie przedstawiać planowanych pomiarów jako wykonanych badań.
 4. Zweryfikować prawne TODO ze specjalistą. Oddzielić wersję demonstracyjną od wizji integracji.
 5. Przećwiczyć [prezentację](PITCH.md), uzupełnić dane autora, właściwy link i [projekt opisu](SUBMISSION.md). Zgłoszenie i zgody wysyła właściciel projektu.

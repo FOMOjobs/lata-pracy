@@ -16,7 +16,9 @@ Problem nie kończy się na pytaniu „ile lat pracuję?”. Trzeba ustalić dat
 
 Najważniejsze jest to, że wynik da się zrozumieć. Użytkownik włącza wcześniejszy okres i widzi zmianę porównania. Oś pokazuje dokładne daty. W fikcyjnej historii Oli z 1126 dni zlecenia 945 pokrywa się z etatem, więc poza podstawą pozostaje 181 dni do sprawdzenia. Każdy dzień liczymy tylko raz.
 
-Po odkryciu użytkownik nie zostaje z samą liczbą. Wybiera okresy i nazwy dokumentów, widzi warunki wymagające potwierdzenia i sprawdza zakres projektu przed jawnym potwierdzeniem symulacji. Otrzymuje czytelną kartę i projekt wiadomości, które może skopiować, pobrać lub wydrukować. Całość pozostaje pod jego kontrolą.
+Po odkryciu użytkownik nie zostaje z samą liczbą. Wybrane okresy przechodzą do przygotowania tej samej sprawy, a wybory zachowują się po cofnięciu i odświeżeniu w sesji karty. Pulpit prowadzi przez jeden wynik i jeden główny następny krok; szczegóły są dostępne na żądanie.
+
+Gdy użytkownik wybiera „Nie mam dokumentu”, widzi konkretny brak, następne działanie i oficjalne źródło. Deklaracja dostępności jest oddzielona od wyboru nazw do pakietu i nie zmienia statusu okresu. Przed potwierdzeniem użytkownik przegląda samą kartę; po „Przygotuj projekt” może ją wydrukować, a pod „Więcej możliwości” skopiować wiadomość lub pobrać TXT. Karta i wiadomość pokazują ten sam wybrany zakres i zadeklarowane braki. Projekt przygotowany nie oznacza dokumentów zweryfikowanych.
 
 Interfejs jest po polsku, responsywny, z obsługą klawiatury, tekstowymi statusami, alternatywną listą okresów i ograniczeniem animacji. Krótka ścieżka demonstracyjna pozwala poznać pomysł w trzech rozdziałach.
 

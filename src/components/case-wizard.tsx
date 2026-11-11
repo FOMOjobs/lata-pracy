@@ -15,30 +15,30 @@ import {
   FileText,
   LockKeyhole,
   Printer,
-  RotateCcw,
   ShieldCheck,
 } from "lucide-react";
 import { createCaseDraft, createCasePlan } from "@/lib/case-plan";
+import { useCaseSession } from "@/lib/case-session";
 import { formatDateRange, formatNumber } from "@/lib/history";
 import type { Scenario } from "@/lib/types";
+import { DocumentPreparation } from "./document-preparation";
 import { PacketPreview } from "./packet-preview";
 import { LegalInfo } from "./legal-info";
 
 const steps = ["Wybierz okresy", "Ustal zakres pakietu", "Sprawdź i potwierdź"];
 
 export function CaseWizard({ scenario }: { scenario: Scenario }) {
+  const { state, togglePeriod, toggleDocument, setDocumentAvailability } =
+    useCaseSession(scenario);
+  const {
+    selectedPeriodIds: selectedIds,
+    selectedDocumentIds,
+    documentAvailability,
+  } = state;
   const candidates = scenario.periods.filter(
     (period) => period.status === "potential",
   );
   const [step, setStep] = useState(0);
-  const [selectedIds, setSelectedIds] = useState(
-    candidates.map((period) => period.id),
-  );
-  const [selectedDocumentIds, setSelectedDocumentIds] = useState(
-    candidates.flatMap((period) =>
-      period.documents.map((document) => document.id),
-    ),
-  );
   const [acknowledged, setAcknowledged] = useState(false);
   const [copyStatus, setCopyStatus] = useState("");
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -47,15 +47,22 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
   const selectedDocuments = plan.documents.filter((document) =>
     selectedDocumentIds.includes(document.id),
   );
-  const draft = createCaseDraft(scenario, selectedIds, selectedDocumentIds);
+  const pendingDocuments = selectedDocuments.filter(
+    (document) => documentAvailability[document.id] !== "have",
+  );
+  const missingDocuments = selectedDocuments.filter(
+    (document) => documentAvailability[document.id] === "missing",
+  );
+  const draft = createCaseDraft(
+    scenario,
+    selectedIds,
+    selectedDocumentIds,
+    documentAvailability,
+  );
   useEffect(() => {
     headingRef.current?.focus({ preventScroll: true });
   }, [step]);
 
-  const toggle = (current: string[], id: string) =>
-    current.includes(id)
-      ? current.filter((item) => item !== id)
-      : [...current, id];
   function saveDraft() {
     const url = URL.createObjectURL(
       new Blob(["\uFEFF", draft], { type: "text/plain;charset=utf-8" }),
@@ -65,6 +72,9 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
     anchor.download = `lata-pracy-${scenario.id}-projekt-demo.txt`;
     anchor.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setCopyStatus(
+      "Pobrano fikcyjny projekt wiadomości. Nic nie zostało wysłane.",
+    );
   }
   async function copyDraft() {
     try {
@@ -78,6 +88,11 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
       draftRef.current?.select();
       setCopyStatus("Zaznaczono projekt. Skopiuj go skrótem Ctrl+C lub ⌘C.");
     }
+  }
+  function revise(nextStep: number) {
+    setStep(nextStep);
+    setAcknowledged(false);
+    setCopyStatus("");
   }
 
   return (
@@ -105,26 +120,26 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
         <section className="case-content">
           <div className="case-content-heading">
             <span className="eyebrow">
-              {step < 3 ? `KROK ${step + 1} Z 3` : "PRZYGOTOWANIE ZAKOŃCZONE"} ·
+              {step < 3 ? `KROK ${step + 1} Z 3` : "PROJEKT PRZYGOTOWANY"} ·
               FIKCYJNY SCENARIUSZ
             </span>
             <h1 ref={headingRef} tabIndex={-1}>
               {
                 [
                   "Zacznij od jednej historii.",
-                  "Ty wybierasz zakres.",
-                  "Zobacz, co przygotowujesz.",
-                  "Plan gotowy. Decyzja należy do Ciebie.",
+                  "Sprawdź dokumenty i wybierz zakres.",
+                  "Sprawdź wybrany zakres.",
+                  "Masz projekt. Wiesz, co sprawdzić dalej.",
                 ][step]
               }
             </h1>
             <p>
               {
                 [
-                  "Wybierz okresy, o których chcesz porozmawiać z pracodawcą. Etaty z przykładu są już w podstawie.",
-                  "Wybierz nazwy dokumentów do ujęcia w projekcie. Nie przesyłasz żadnych plików, a zaznaczenie nie potwierdza posiadania dokumentu.",
-                  "Przejrzyj zakres i projekt wiadomości. Ostatni przycisk kończy wyłącznie tę demonstrację.",
-                  "Masz wybrane okresy, listę warunków i projekt wiadomości. W tej demonstracji nic nie zostało przekazane pracodawcy ani ZUS.",
+                  "Zachowaliśmy Twój wybór z historii. Wybierz okresy do rozmowy z pracodawcą; etaty z przykładu są już w podstawie.",
+                  "Określ, czy masz dokument do sprawdzenia. Osobno wybierasz, które nazwy uwzględnić w projekcie. Nie przesyłasz żadnych plików.",
+                  "Przejrzyj kartę i zadeklarowaną dostępność dokumentów. Dopiero po potwierdzeniu przygotujesz projekt do skopiowania lub druku.",
+                  "Projekt obejmuje wybrany zakres i pokazuje braki. Nic nie zostało przekazane pracodawcy ani ZUS; dokumenty i warunki nadal wymagają oceny.",
                 ][step]
               }
             </p>
@@ -139,9 +154,7 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
                   <input
                     type="checkbox"
                     checked={selectedIds.includes(period.id)}
-                    onChange={() =>
-                      setSelectedIds((current) => toggle(current, period.id))
-                    }
+                    onChange={() => togglePeriod(period.id)}
                   />
                   <span className="case-period-text">
                     <strong>{period.title}</strong>
@@ -170,31 +183,21 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
             <div className="case-document-choices">
               <div className="case-section-label">
                 <FileCheck2 size={20} aria-hidden="true" />
-                <h2>Nazwy dokumentów w projekcie</h2>
+                <h2>Dokumenty do sprawdzenia</h2>
                 <span>
-                  {selectedDocuments.length} / {plan.documents.length}
+                  {selectedDocuments.length} / {plan.documents.length} w
+                  projekcie
                 </span>
               </div>
-              {plan.documents.map((document) => (
-                <label
-                  className={`document-check ${selectedDocumentIds.includes(document.id) ? "is-checked" : ""}`}
-                  key={document.id}
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedDocumentIds.includes(document.id)}
-                    onChange={() =>
-                      setSelectedDocumentIds((current) =>
-                        toggle(current, document.id),
-                      )
-                    }
-                  />
-                  <span>
-                    <strong>{document.title}</strong>
-                    <small>{document.hint}</small>
-                  </span>
-                </label>
-              ))}
+              <DocumentPreparation
+                documents={plan.periods.flatMap((period) =>
+                  period.documents.map((document) => ({ document, period })),
+                )}
+                availability={documentAvailability}
+                onAvailabilityChange={setDocumentAvailability}
+                selectedDocumentIds={selectedDocumentIds}
+                onToggleSelected={toggleDocument}
+              />
               {selectedDocuments.length === 0 && (
                 <p className="case-incomplete" role="status">
                   Bez wybranych nazw dokumentów projekt będzie oznaczony jako
@@ -205,98 +208,114 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
                 <Eye size={20} aria-hidden="true" />
                 <div>
                   <strong>
-                    W podglądzie zobaczysz dokładnie wybrany zakres.
+                    „Mam dokument” i „uwzględnij w projekcie” to dwa osobne
+                    wybory.
                   </strong>
                   <p>
-                    Wiadomość obejmie wybrane okresy, warunki do sprawdzenia
-                    oraz zaznaczone nazwy dokumentów.
+                    Dostępność jest deklaracją, a nie weryfikacją dokumentu.
+                    Zmiana jej nie zatwierdza okresu ani nie zmienia liczby dni.
                   </p>
                 </div>
               </div>
             </div>
           )}
           {step >= 2 && (
+            <div className="case-preview-wrapper">
+              <PacketPreview
+                scenario={scenario}
+                selectedIds={selectedIds}
+                selectedDocumentIds={selectedDocumentIds}
+                documentAvailability={documentAvailability}
+              />
+            </div>
+          )}
+          {step === 2 && (
+            <label className="case-acknowledgement">
+              <input
+                type="checkbox"
+                checked={acknowledged}
+                onChange={(event) => setAcknowledged(event.target.checked)}
+              />
+              <span>
+                Rozumiem, że to fikcyjna symulacja. Nic nie zostanie wysłane, a
+                wynik nie potwierdza uprawnień.
+              </span>
+            </label>
+          )}
+          {step === 3 && (
             <>
-              <div className="case-preview-wrapper">
-                <PacketPreview
-                  scenario={scenario}
-                  selectedIds={selectedIds}
-                  selectedDocumentIds={selectedDocumentIds}
-                />
+              <div className="case-complete">
+                <CheckCheck size={25} aria-hidden="true" />
+                <div>
+                  <h2>Projekt pakietu przygotowany.</h2>
+                  <p>
+                    {selectedDocuments.length === 0
+                      ? "Nie wybrano nazw dokumentów. Projekt wymaga uzupełnienia."
+                      : pendingDocuments.length > 0
+                        ? `Dostępność ${pendingDocuments.length} z ${selectedDocuments.length} wybranych dokumentów wymaga uzupełnienia lub ustalenia. Sprawdź wskazane braki przed rzeczywistą rozmową.`
+                        : "Zadeklarowano posiadanie wybranych dokumentów. Nadal trzeba sprawdzić ich treść, kompletność i warunki zaliczenia okresów."}
+                  </p>
+                  {pendingDocuments.length > 0 && (
+                    <button className="text-link" onClick={() => revise(1)}>
+                      {missingDocuments.length > 0
+                        ? "Wróć do brakujących dokumentów"
+                        : "Wróć do dokumentów do sprawdzenia"}{" "}
+                      <ArrowRight size={15} aria-hidden="true" />
+                    </button>
+                  )}
+                </div>
               </div>
-              <section className="case-draft-section">
-                <div className="case-section-label">
-                  <FileText size={20} aria-hidden="true" />
-                  <h2>Projekt wiadomości</h2>
-                </div>
-                <label className="sr-only" htmlFor="case-draft">
-                  Fikcyjny projekt wiadomości do pracodawcy
-                </label>
-                <textarea
-                  ref={draftRef}
-                  id="case-draft"
-                  readOnly
-                  value={draft}
-                  rows={10}
-                />
-                <div className="case-draft-actions">
-                  <button className="button button-outline" onClick={copyDraft}>
-                    <Clipboard size={16} aria-hidden="true" /> Skopiuj projekt
-                  </button>
-                  <button className="button button-outline" onClick={saveDraft}>
-                    <ArrowDownToLine size={16} aria-hidden="true" /> Pobierz TXT
-                  </button>
-                  <button
-                    className="button button-outline"
-                    onClick={() => window.print()}
-                  >
-                    <Printer size={16} aria-hidden="true" /> Drukuj kartę
-                  </button>
-                </div>
-                <p className="small muted">
-                  W oknie drukowania możesz wybrać „Zapisz jako PDF”. Druk
-                  obejmuje kartę z wybranym zakresem.
-                </p>
-                <p className="case-copy-status" role="status">
-                  {copyStatus}
-                </p>
-              </section>
-              {step === 2 && (
-                <label className="case-acknowledgement">
-                  <input
-                    type="checkbox"
-                    checked={acknowledged}
-                    onChange={(event) => setAcknowledged(event.target.checked)}
-                  />
-                  <span>
-                    Rozumiem, że to fikcyjna symulacja. Nic nie zostanie
-                    wysłane, a wynik nie potwierdza uprawnień.
-                  </span>
-                </label>
-              )}
-              {step === 3 && (
-                <div className="case-complete">
-                  <CheckCheck size={25} aria-hidden="true" />
-                  <div>
-                    <h2>Projekt pakietu jest gotowy.</h2>
-                    <p>
-                      Możesz go przejrzeć, skopiować lub wydrukować. Rzeczywiste
-                      zaliczenie okresu wymaga oceny warunków i dokumentów przez
-                      pracodawcę.
-                    </p>
+              <details className="case-more-options">
+                <summary>Więcej możliwości</summary>
+                <section className="case-draft-section">
+                  <div className="case-section-label">
+                    <FileText size={20} aria-hidden="true" />
+                    <h2>Projekt wiadomości</h2>
                   </div>
-                </div>
-              )}
+                  <label className="sr-only" htmlFor="case-draft">
+                    Fikcyjny projekt wiadomości do pracodawcy
+                  </label>
+                  <textarea
+                    ref={draftRef}
+                    id="case-draft"
+                    readOnly
+                    value={draft}
+                    rows={10}
+                  />
+                  <div className="case-draft-actions">
+                    <button
+                      className="button button-outline"
+                      onClick={copyDraft}
+                    >
+                      <Clipboard size={16} aria-hidden="true" /> Skopiuj projekt
+                    </button>
+                    <button
+                      className="button button-outline"
+                      onClick={saveDraft}
+                    >
+                      <ArrowDownToLine size={16} aria-hidden="true" /> Pobierz
+                      TXT
+                    </button>
+                  </div>
+                  <p className="case-copy-status" role="status">
+                    {copyStatus}
+                  </p>
+                </section>
+                <button className="text-link" onClick={() => revise(0)}>
+                  Popraw wybór okresów i dokumentów{" "}
+                  <ArrowRight size={15} aria-hidden="true" />
+                </button>
+                <Link className="text-link" href={`/pulpit/${scenario.id}`}>
+                  Wróć do historii <ArrowRight size={15} aria-hidden="true" />
+                </Link>
+              </details>
             </>
           )}
           <div className="case-navigation">
             {step > 0 && step < 3 && (
               <button
                 className="button button-outline"
-                onClick={() => {
-                  setStep(step - 1);
-                  setAcknowledged(false);
-                }}
+                onClick={() => revise(step - 1)}
               >
                 <ArrowLeft size={16} aria-hidden="true" /> Wstecz
               </button>
@@ -317,30 +336,24 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
                 disabled={!acknowledged}
                 onClick={() => setStep(3)}
               >
-                Zakończ symulację <Check size={17} aria-hidden="true" />
+                Przygotuj projekt <Check size={17} aria-hidden="true" />
               </button>
             )}
             {step === 3 && (
-              <>
-                <button
-                  className="button button-outline"
-                  onClick={() => {
-                    setStep(0);
-                    setAcknowledged(false);
-                    setCopyStatus("");
-                  }}
-                >
-                  <RotateCcw size={16} aria-hidden="true" /> Przejdź ponownie
-                </button>
-                <Link
-                  className="button button-primary"
-                  href={`/pulpit/${scenario.id}`}
-                >
-                  Wróć do historii <ArrowRight size={17} aria-hidden="true" />
-                </Link>
-              </>
+              <button
+                className="button button-primary"
+                onClick={() => window.print()}
+              >
+                <Printer size={17} aria-hidden="true" /> Drukuj kartę
+              </button>
             )}
           </div>
+          {step === 3 && (
+            <p className="small muted case-print-hint">
+              W oknie drukowania możesz wybrać „Zapisz jako PDF”. Druk obejmuje
+              samą kartę z wybranym zakresem.
+            </p>
+          )}
           {step === 0 && plan.periods.length === 0 && (
             <p className="case-selection-hint" role="status">
               Wybierz co najmniej jeden okres, aby przejść dalej.
@@ -378,7 +391,8 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
           <div className="case-summary-privacy">
             <LockKeyhole size={17} aria-hidden="true" />
             <span>
-              Wszystko dzieje się w tej demonstracji. Bez wysyłania danych.
+              Wybory są zachowane w tej karcie przeglądarki. Bez wysyłania
+              danych.
             </span>
           </div>
           <LegalInfo label="Zasady i oficjalne źródła" />

@@ -1,6 +1,8 @@
 export type PeriodStatus = "included" | "potential" | "review";
 export type WorkType = "employment" | "contract" | "business";
 export type ScenarioId = "kasia" | "marek" | "ola";
+/** A demo user's declaration, never validation of a document or legal eligibility. */
+export type DocumentAvailability = "unknown" | "missing" | "have";
 
 export interface DemoDocument {
   id: string;

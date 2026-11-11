@@ -34,8 +34,6 @@ describe("odkrywanie wpływu wybranego okresu", () => {
       ],
     };
     render(<HistoryExplorer scenario={scenario} onInspect={() => {}} />);
-    for (const checkbox of screen.getAllByRole("checkbox"))
-      await userEvent.click(checkbox);
     expect(screen.getByRole("status")).toHaveTextContent("7 dni poza podstawą");
     await userEvent.click(screen.getByText("Skąd bierze się ta różnica?"));
     expect(screen.getByText("2 dni")).toBeVisible();
@@ -43,11 +41,13 @@ describe("odkrywanie wpływu wybranego okresu", () => {
   });
   it("aktualizuje warunkowy wynik i wyjaśnia dni bez zmiany scenariusza", async () => {
     render(<HistoryExplorer scenario={scenarios[2]} onInspect={() => {}} />);
-    expect(screen.getByRole("status")).toHaveTextContent("0 dni poza podstawą");
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "181 dni poza podstawą",
+    );
     const checkbox = screen.getByRole("checkbox", {
       name: /Zlecenie równolegle/,
     });
-    await userEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
     expect(screen.getByRole("status")).toHaveTextContent(
       "181 dni poza podstawą",
     );

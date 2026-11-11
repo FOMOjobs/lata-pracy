@@ -79,7 +79,7 @@ describe("praca z fikcyjną historią", () => {
     expect(
       within(dialog).getByRole("heading", { name: "Co wymaga sprawdzenia?" }),
     ).toBeVisible();
-    expect(within(dialog).getAllByRole("checkbox")).toHaveLength(2);
+    expect(within(dialog).getAllByRole("combobox")).toHaveLength(2);
     await userEvent.click(
       within(dialog).getByRole("button", { name: "Zamknij okno" }),
     );
@@ -99,7 +99,7 @@ describe("praca z fikcyjną historią", () => {
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
-  it("zaznacza dokumenty bez zmieniania statusów i wyliczeń", async () => {
+  it("zachowuje deklarację braku dokumentu bez zmiany statusów i wyliczeń", async () => {
     render(<Workspace scenario={scenarios[0]} screen="dashboard" />);
     const before = screen.getByRole("heading", {
       name: "Potencjalnie do doliczenia",
@@ -107,12 +107,12 @@ describe("praca z fikcyjną historią", () => {
     await userEvent.click(
       screen.getByRole("button", { name: "Lista dokumentów" }),
     );
-    const checkboxes = within(screen.getByRole("dialog")).getAllByRole(
-      "checkbox",
-    );
-    await userEvent.click(checkboxes[0]);
-    expect(checkboxes[0]).toBeChecked();
-    expect(within(screen.getByRole("dialog")).getByText("1 / 6")).toBeVisible();
+    const selects = within(screen.getByRole("dialog")).getAllByRole("combobox");
+    await userEvent.selectOptions(selects[0], "missing");
+    expect(selects[0]).toHaveValue("missing");
+    expect(
+      within(screen.getByRole("dialog")).getByText(/Brak do uzupełnienia:/),
+    ).toBeVisible();
     await userEvent.click(
       within(screen.getByRole("dialog")).getByRole("button", {
         name: "Zamknij okno",
@@ -126,8 +126,8 @@ describe("praca z fikcyjną historią", () => {
       screen.getByRole("button", { name: "Lista dokumentów" }),
     );
     expect(
-      within(screen.getByRole("dialog")).getAllByRole("checkbox")[0],
-    ).toBeChecked();
+      within(screen.getByRole("dialog")).getAllByRole("combobox")[0],
+    ).toHaveValue("missing");
   });
   it("udostępnia źródła i ograniczenia bez opuszczania aplikacji", async () => {
     render(<Workspace scenario={scenarios[0]} screen="dashboard" />);
@@ -159,6 +159,7 @@ describe("praca z fikcyjną historią", () => {
       .spyOn(HTMLAnchorElement.prototype, "click")
       .mockImplementation(() => {});
     render(<Workspace scenario={scenarios[2]} screen="dashboard" />);
+    await userEvent.click(screen.getByText("Więcej", { selector: "summary" }));
     await userEvent.click(
       screen.getByRole("button", { name: /Pobierz podsumowanie/ }),
     );

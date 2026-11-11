@@ -1,8 +1,14 @@
 import "@testing-library/jest-dom/vitest";
-import { afterEach, vi } from "vitest";
+import { afterEach, beforeEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
+import { clearCaseSessions } from "@/lib/case-session";
 
-afterEach(() => cleanup());
+beforeEach(() => clearCaseSessions());
+afterEach(() => {
+  cleanup();
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+});
 
 // jsdom has no native modal top layer. Browser focus trapping is not simulated.
 HTMLDialogElement.prototype.showModal = function () {

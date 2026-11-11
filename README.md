@@ -40,14 +40,16 @@ Jeśli port 3000 jest zajęty, przeczytaj adres wypisany w terminalu lub uruchom
 Na krótki pokaz wybierz **„Zobacz różnicę w 90 sekund”** albo otwórz `/demo`. Trzy rozdziały prowadzą od historii Oli przez rozbicie 1126 dni zlecenia na 945 dni już w podstawie i 181 nowych dni, aż do przygotowania sprawy.
 
 1. Na stronie startowej kliknij **„Sprawdź swoją historię pracy”**.
-2. Wybierz **Kasię**. Pulpit pokaże etaty przyjęte jako uwzględnione w przykładzie, zlecenie potencjalnie do doliczenia i okres do weryfikacji.
+2. Wybierz **Kasię**. Pulpit prowadzi przez jedno porównanie i główne działanie **„Przygotuj sprawę krok po kroku”**. Niżej pokazuje trzy kompaktowe kategorie całej fikcyjnej historii: uwzględnione, potencjalne i do weryfikacji.
 3. Kliknij okres albo **„Otwórz oś czasu”**. Otwórz szczegóły, przeczytaj warunki i zobacz dokumenty do przygotowania.
 4. Wypróbuj filtry, widok listy i kolejność okresów. Na telefonie oś można przewijać poziomo; lista daje ten sam dostęp do szczegółów.
 5. Przełącz scenariusz na **Olę**. Jej zlecenie dodaje tylko **181 dni** poza etatem; pokrywających się dni nie doliczamy drugi raz. Dodatkowa współpraca wnosi **0 nowych dni**.
-6. Otwórz **„Listę dokumentów”** i zaznacz przykładowy dokument. To robocze oznaczenie w aktualnym widoku; nie zatwierdza okresu ani nie zmienia wyniku. Znika po opuszczeniu strony.
-7. Kliknij **„Pobierz podsumowanie”**, żeby zapisać plik TXT z fikcyjną historią, ograniczeniami i warunkami. **„Jak czytać wynik”** otwiera wyjaśnienia oraz odsyłacze do oficjalnych źródeł.
-8. W sekcji **„A jeśli wrócisz do wcześniejszej pracy?”** włącz okres i zobacz zmianę warunkowego wyniku. Rozwiń wyjaśnienie, aby sprawdzić dokładne daty.
-9. Kliknij **„Przygotuj sprawę krok po kroku”**. Wybierz okres i nazwy dokumentów, przejrzyj pakiet i projekt wiadomości, a następnie jawnie potwierdź symulację. Możesz skopiować projekt, pobrać TXT albo wydrukować samą kartę (także jako PDF przez okno drukowania). Nic nie jest wysyłane.
+6. Otwórz **„Listę dokumentów”**. Przy przykładowym dokumencie ustaw **„Nie mam dokumentu”**, a potem rozwiń **„Jak uzupełnić ten brak?”**. Zobaczysz konkretny następny krok i oficjalne źródło. Dostępność jest deklaracją, nie weryfikacją dokumentu ani prawa do zaliczenia okresu.
+7. W głównym porównaniu włącz lub wyłącz wcześniejszy okres i rozwiń wyjaśnienie dat. Podpis pod porównaniem przypomina, że trzy kategorie poniżej opisują całą historię niezależnie od wyboru. **„Więcej” → „Pobierz podsumowanie TXT”** zapisuje pełne fikcyjne zestawienie; **„Jak czytać wynik”** otwiera zasady i źródła.
+8. Kliknij **„Przygotuj sprawę krok po kroku”**. Wybrane okresy i deklaracje dostępności przejdą do przygotowania sprawy. Osobno wybierz nazwy dokumentów do ujęcia w projekcie. Przejrzyj samą kartę, zaznacz zrozumienie demonstracji i kliknij **„Przygotuj projekt”**.
+9. Główne działanie na końcu to **„Drukuj kartę”**; w oknie drukowania możesz wybrać zapis PDF. Pod **„Więcej możliwości”** znajdziesz wiadomość, kopiowanie i TXT. Brakujące lub nieustalone dokumenty pozostają widoczne. Nic nie jest wysyłane.
+
+W nowej sesji potencjalne okresy i ich nazwy dokumentów są domyślnie wybrane, a ich dostępność ma stan **„Nie wiem jeszcze”**. Wybory są wspólne dla ekranów i zapisywane osobno dla scenariuszy w `sessionStorage`: zachowują się po nawigacji i odświeżeniu w tej samej karcie. Zapisywane są tylko identyfikatory fikcyjnych okresów i dokumentów oraz deklaracje dostępności — bez plików, danych osobowych i treści wiadomości. Bieżący krok i potwierdzenie symulacji nie są utrwalane. Przy zablokowanym zapisie przeglądarki aplikacja działa w pamięci, ale odświeżenie może usunąć wybory.
 
 ## Ekrany
 
@@ -70,7 +72,7 @@ npm run build      # produkcyjny build Next.js
 npm run check      # wszystkie powyższe kolejno
 ```
 
-Testy obejmują m.in. lata przestępne, zmianę czasu, błędne daty, zagnieżdżone i wielokrotne nakładanie okresów, niezależny model zbiorów dla 100 historii, scenariusz Oli, filtry, sortowanie, szczegóły, checklistę, eksport TXT, rozbicie dat na odcinki, porównanie warunkowe, pełną ścieżkę przygotowania, wybrany zakres dokumentów, wymagane potwierdzenie oraz awaryjne kopiowanie. jsdom nie sprawdza układu, kontrastu, natywnego zarządzania fokusem ani wyniku drukowania. Procedura sprawdzenia w przeglądarce znajduje się w [docs/TESTING.md](docs/TESTING.md).
+Testy obejmują m.in. lata przestępne, zmianę czasu, błędne daty, zagnieżdżone i wielokrotne nakładanie okresów, niezależny model zbiorów dla 100 historii, scenariusz Oli, filtry, sortowanie, szczegóły, eksport TXT, rozbicie dat na odcinki, porównanie warunkowe, wspólne wybory między ekranami, zapis sesji, ścieżkę brakującego dokumentu, odrębność dostępności i zakresu pakietu, wymagane potwierdzenie przed eksportem oraz awaryjne kopiowanie. jsdom nie sprawdza układu, kontrastu, natywnego zarządzania fokusem ani wyniku drukowania. Procedura sprawdzenia w przeglądarce znajduje się w [docs/TESTING.md](docs/TESTING.md).
 
 GitHub Actions wykonuje `npm ci` i `npm run check` dla Pull Requestów do `main`.
 
