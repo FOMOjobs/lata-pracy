@@ -15,7 +15,7 @@ Informacje o konkursie sprawdzono 11.11.2026 na [stronie organizatora](https://m
 | Prywatność i kontrola                    | Dostępność jest deklaracją; opcjonalne „Dostosuj zawartość” oddziela zakres nazw od dostępności; karta i wiadomość zachowują ten sam zakres i braki            | Zapis sesji obejmuje wyłącznie identyfikatory i znaczniki; brak uploadu i rzeczywistej wysyłki |
 | Dostępność                               | Prosty język, etykiety, klawiatura, jawny fokus, lista jako początek mobilnej historii, większe kontrolki, ograniczony ruch                                                             | Elementy zaimplementowane; audyt czytnika i kontrastu pozostaje do wykonania                   |
 | Zrozumiały efekt                         | Przełączane porównanie i dokładne rozbicie nakładających się dat                                                                           | Ola: 1126 dni zlecenia = 945 w podstawie + 181 poza podstawą                                   |
-| Link bez logowania                       | Kod aplikacji nie wymaga kont, API ani usług zewnętrznych do przejścia demonstracji                                                        | **Publiczny hosting i test incognito wymagają przygotowania przed zgłoszeniem**                |
+| Link bez logowania                       | Publiczne [demo HTTPS](https://lata-pracy-demo.verbaltoucan.chatgpt.site), bez konta i integracji                                                        | Wdrożenie oraz odpowiedzi 12 stron potwierdzone 12.11.2026; pełne przejście incognito pozostaje do sprawdzenia                |
 | Polskie modele / technologie             | Autorski projekt i interfejs po polsku; obecna wersja nie wywołuje PLLuM ani Bielika                                                       | W zgłoszeniu nie deklarować działającej integracji z modelem                                   |
 
 To mapowanie funkcji do kierunków opisanych na stronie konkursu, nie oficjalny system punktowy ani wynik porównawczy z innymi uczestnikami.
@@ -36,7 +36,7 @@ Nie deklarujemy pomiaru przewagi nad prototypem organizatora: nie przeprowadzono
 
 ## Przed wysłaniem
 
-1. Przygotować stabilny publiczny adres HTTPS bez bramki logowania, działający do ogłoszenia wyników; sprawdzić link w trybie prywatnym.
+1. Sprawdzić ponownie [publiczny prototyp](https://lata-pracy-demo.verbaltoucan.chatgpt.site) w trybie prywatnym i utrzymać dostępność linku do ogłoszenia wyników. Wdrożenie i odpowiedzi stron HTTPS potwierdzono 12.11.2026.
 2. Przejść `/demo` → `/sprawa/ola` na telefonie, klawiaturą i z powiększeniem. Sprawdzić brak dokumentu, zachowanie wyborów po nawigacji i odświeżeniu, końcową kartę bez dodatkowego zatwierdzania, kopiowanie, wydruk i polskie znaki w pliku.
 3. Dać 3–5 osobom zadanie: „sprawdź zlecenie Oli i przygotuj podsumowanie dla kadr”. Zmierzyć rzeczywisty czas, błędy i zrozumienie warunkowego wyniku. Nie przedstawiać planowanych pomiarów jako wykonanych badań.
 4. Zweryfikować prawne TODO ze specjalistą. Oddzielić wersję demonstracyjną od wizji integracji.

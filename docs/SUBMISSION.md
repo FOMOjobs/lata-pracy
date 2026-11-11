@@ -29,7 +29,9 @@ Chcemy pokazać cyfrową usługę, która pomaga przejść jedną sprawę od poc
 
 ## Link do prototypu
 
-Do uzupełnienia po publicznym wdrożeniu. Zalecana strona wejścia: `/` z widocznym odsyłaczem do `/demo`. Link musi działać w oknie prywatnym bez konta właściciela, hasła, zaproszenia ani logowania do hostingu.
+https://lata-pracy-demo.verbaltoucan.chatgpt.site
+
+Publiczne demo opublikowano 12.11.2026. Zalecana strona wejścia: `/` z widocznym odsyłaczem do `/demo`. Odpowiedzi HTTPS stron sprawdzono bez nagłówków logowania. Przed zgłoszeniem przejdź jeszcze całą ścieżkę w oknie prywatnym: bez konta właściciela, hasła, zaproszenia ani logowania do hostingu.
 
 ## Dodatkowy link
 

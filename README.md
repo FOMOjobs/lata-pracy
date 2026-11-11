@@ -2,6 +2,8 @@
 
 **Twoja praca się liczy.** Niezależny, polskojęzyczny prototyp konkursowy, który pomaga uporządkować historię zawodową i zobaczyć, jakie okresy warto zweryfikować w związku ze zmianami przepisów w 2026 r.
 
+**Demo bez logowania:** https://lata-pracy-demo.verbaltoucan.chatgpt.site — na krótki pokaz otwórz [historię Oli](https://lata-pracy-demo.verbaltoucan.chatgpt.site/demo/).
+
 > To nie jest oficjalna usługa państwowa ani porada prawna. Wszystkie osoby, firmy, daty i statusy w scenariuszach są fikcyjne. Wyniki nie potwierdzają prawa do zaliczenia okresu. Aplikacja nie integruje się z ZUS i nie przyjmuje rzeczywistych danych ani dokumentów.
 
 ## Uruchomienie — krok po kroku
@@ -89,7 +91,7 @@ Standardowy build działa na hostingu obsługującym Next.js 16 i Node.js 22+. D
 npm run build:static
 ```
 
-Polecenie przygotowuje katalog `out/` do hostingu statycznego; w tym wariancie każda znana trasa ma własny plik HTML. Nie uruchamiaj `npm start` do serwowania `out/`. Konfigurację publikacji prototypu w Sites zapisuje `.openai/hosting.json`; sam plik konfiguracji nie oznacza, że wdrożenie już działa. Publiczny adres i wynik weryfikacji należy potwierdzić przed zgłoszeniem do konkursu.
+Polecenie przygotowuje katalog `out/` do hostingu statycznego; w tym wariancie każda znana trasa ma własny plik HTML. Nie uruchamiaj `npm start` do serwowania `out/`. Konfigurację publikacji prototypu w Sites zapisuje `.openai/hosting.json`. Publiczne demo opublikowano 12.11.2026; sprawdzono odpowiedzi HTTPS dla 12 stron oraz nieznanego adresu (404). Przejście całej ścieżki w oknie prywatnym i na rzeczywistym telefonie pozostaje do ręcznego sprawdzenia.
 
 ## Technologie i struktura
 

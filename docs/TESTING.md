@@ -20,6 +20,8 @@ Weryfikacja lokalna **12.11.2026**, po iteracji audytowej: `npm run check` zako�
 
 Testy obejmują dokładne odcinki pokrycia dat, nakładanie dwóch wybranych okresów, wspólne wybory między ekranami, odtwarzanie i walidację zapisu sesji, ścieżkę „Nie mam dokumentu”, niezależność dostępności od zakresu pakietu, spójność karty z wiadomością, bezpośredni eksport na końcu trzech kroków oraz schowek i jego odmowę. Test drukowania sprawdza wywołanie lokalnego `window.print`, nie wygląd wydruku. Kontrast wybranych par kolorów wcześniejszej iteracji obliczono statycznie; nie jest to audyt całego wyrenderowanego interfejsu.
 
+Publiczne [demo](https://lata-pracy-demo.verbaltoucan.chatgpt.site) wdrożono 12.11.2026. Kontrola HTTP bez nagłówków Cookie i Authorization potwierdziła 200 dla wszystkich 12 stron treści oraz próbek JS/CSS i 404 dla `/historia/nieznany/`. To kontrola publikacji i routingu, nie test interakcji JavaScript ani sesja w prywatnym oknie przeglądarki.
+
 ## Ręczne sprawdzenie w przeglądarce
 
 Uruchom `npm run dev`, otwórz adres z terminala.
