@@ -33,4 +33,8 @@ Nie ma bazy danych, autoryzacji, analityki aplikacji, API ZUS, kluczy, sekretów
 
 ## Rozbudowa
 
+Druga iteracja dodaje osobne moduły `HistoryExplorer`, `CoverageBreakdown`, `ContestDemo`, `CaseWizard` i `PacketPreview`. Funkcja `splitPeriodByCoverage` rozdziela konkretny okres na przylegające odcinki z dokładnymi datami. `createCasePlan` uwzględnia wyłącznie wybrane okresy ze statusem `potential` oraz niezmienioną podstawę; nieznane identyfikatory i okresy `review` nie awansują do kategorii potencjalnej. `createCaseDraft` filtruje nazwy dokumentów do wybranego zakresu i zawsze dołącza ograniczenia demonstracji.
+
+Ścieżki `/demo` oraz `/sprawa/[scenario]` są generowane statycznie dla lokalnych danych. Kopiowanie, zapis TXT i drukowanie są lokalnymi czynnościami w przeglądarce. Arkusz `experience.css` zawiera style nowych modułów i reguły wydruku wyłącznie karty. Nie ma endpointu wysyłającego wiadomość ani integracji modelu językowego.
+
 Przy wzroście zakresu należy wydzielić z `Workspace` osobne moduły pulpitu, osi, dokumentów i eksportu. Ewentualny silnik reguł prawnych powinien mieć oddzielne, wersjonowane wejście i wynik z informacją o źródle oraz stopniu pewności. Obecne statusy demonstracyjne nie mogą automatycznie zostać takim silnikiem.

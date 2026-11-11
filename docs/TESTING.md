@@ -15,7 +15,9 @@ Testy algorytmu zawierają niezależny model przypisujący konkretne dni do zbio
 
 jsdom nie renderuje CSS ani natywnej warstwy modalnej. `showModal` i `close` są w testach zastąpione minimalnymi funkcjami ustawiającymi stan dialogu. Test cancel sprawdza obsługę zdarzenia, nie fizycznego klawisza Escape ani zachowania systemowego fokusu.
 
-Weryfikacja lokalna 11.11.2026: lint bez ostrzeżeń, kontrola typów, **36 testów w 3 plikach** i produkcyjny build zakończyły się powodzeniem. Build wygenerował start, scenariusze oraz pulpity i osie wszystkich trzech osób. Skrypt kontroli typów najpierw generuje typy tras Next.js, aby działał również w świeżym checkoutcie przed pierwszym buildem.
+Weryfikacja lokalna 11.11.2026: lint bez ostrzeżeń, kontrola typów, **58 testów w 6 plikach** i produkcyjny build zakończyły się powodzeniem. Build wygenerował start, scenariusze, demo oraz pulpity, osie i przygotowanie sprawy dla wszystkich trzech osób. Skrypt kontroli typów najpierw generuje typy tras Next.js, aby działał również w świeżym checkoutcie przed pierwszym buildem.
+
+Nowe testy obejmują dokładne odcinki pokrycia dat, nakładanie dwóch wybranych okresów, wybór zakresu, spójność karty z wiadomością, blokadę zakończenia bez potwierdzenia symulacji, schowek i jego odmowę. Test drukowania sprawdza wywołanie lokalnego `window.print`, nie wygląd wydruku. Kontrast wybranych nowych par kolorów obliczono statycznie; nie jest to audyt całego wyrenderowanego interfejsu.
 
 ## Ręczne sprawdzenie w przeglądarce
 
@@ -28,6 +30,9 @@ Uruchom `npm run dev`, otwórz adres z terminala.
 5. Przełącz filtry, kolejność i widok listy. Liczby całej historii nie powinny się zmieniać.
 6. Otwórz nieistniejący adres `/historia/nieznany` i sprawdź ekran 404 z powrotem do scenariuszy.
 7. Sprawdź plik TXT: polskie znaki, nazwa scenariusza, statusy, warunki, TODO i oznaczenie demonstracji.
+8. Na pulpicie włącz i wyłącz potencjalny okres w porównaniu. Wartość powinna wracać do podstawy. Rozwiń wyjaśnienie i porównaj daty z osią.
+9. Przejdź trzy rozdziały `/demo`, następnie całą ścieżkę `/sprawa/ola`. Odznacz jedną nazwę dokumentu i upewnij się, że znika zarówno z karty, jak i wiadomości. Bez potwierdzenia symulacji nie powinno dać się jej zakończyć.
+10. Sprawdź kopiowanie (także gdy przeglądarka odmawia dostępu do schowka), TXT i wydruk / zapis PDF. Wydruk ma zawierać tylko kartę z wybranym zakresem, źródłami i oznaczeniem demonstracji. Nic nie powinno być wysyłane ani załączane.
 
 ## Klawiatura i czytnik ekranu
 

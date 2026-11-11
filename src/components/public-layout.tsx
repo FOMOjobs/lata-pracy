@@ -3,15 +3,23 @@ import { ArrowUpRight, LockKeyhole } from "lucide-react";
 import { Brand } from "./brand";
 import { LegalInfo } from "./legal-info";
 
-export function PublicHeader({ active }: { active?: "scenarios" }) {
+export function PublicHeader({ active }: { active?: "scenarios" | "demo" }) {
   return (
     <header className="public-header">
       <div className="container header-inner">
         <Brand />
         <nav aria-label="Nawigacja główna">
-          <Link href="/#jak-to-dziala">Jak to działa</Link>
-          <Link href="/scenariusze" aria-current={active ? "page" : undefined}>
-            Poznaj scenariusze
+          <Link
+            href="/demo"
+            aria-current={active === "demo" ? "page" : undefined}
+          >
+            Demo w 90 sekund
+          </Link>
+          <Link
+            href="/scenariusze"
+            aria-current={active === "scenarios" ? "page" : undefined}
+          >
+            Scenariusze
           </Link>
         </nav>
         <span className="demo-pill">

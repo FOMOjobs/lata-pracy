@@ -10,6 +10,10 @@ Pomóc osobie, która ma za sobą różne formy pracy, uporządkować okresy akt
 
 Start → wybór historii → pulpit → oś czasu → szczegóły okresu → robocza lista dokumentów.
 
+Rozbudowana ścieżka konkursowa: `/demo` → odkrycie dodatkowych dni → `/sprawa/[scenario]` → wybór okresów → zakres nazw dokumentów → podgląd karty i projektu wiadomości → jawne potwierdzenie symulacji. Karta i wiadomość zawierają ten sam wybrany zakres. Można je skopiować, pobrać jako TXT lub wydrukować kartę z okna przeglądarki.
+
+Na pulpicie dostępne jest interaktywne porównanie. Zaznaczenie potencjalnego okresu aktualizuje wyłącznie porównanie warunkowe; nie zmienia zapisanych statusów, trzech kart podsumowania ani prawnego TODO. Rozwinięcie pokazuje dokładne odcinki dat już pokrytych etatem oraz dni poza podstawą.
+
 | Ekran       | Cel                                                     | Działanie                                                                |
 | ----------- | ------------------------------------------------------- | ------------------------------------------------------------------------ |
 | Start       | Wyjaśnić wartość i granice produktu                     | CTA „Sprawdź swoją historię pracy”, kroki, zasady i źródła               |
@@ -49,3 +53,5 @@ Interfejs dopasowuje się do telefonu, tabletu i komputera. Na telefonie boczna 
 ## Poza zakresem
 
 Rzeczywiste dane, edycja historii, upload dokumentów, logowanie, baza danych, automatyczne reguły kwalifikacji prawnej, integracje ZUS/CEIDG, ustalanie urlopu i świadczeń, podpisywanie i składanie wniosków, produkcyjne wdrożenie. Nie są sugerowane jako działające funkcje.
+
+Potwierdzenie w przygotowaniu sprawy kończy lokalną symulację. Nie jest wysyłką do pracodawcy ani urzędu. Nazwy dokumentów nie są plikami ani potwierdzeniem ich istnienia. Stan wyborów znika po opuszczeniu ekranu lub odświeżeniu.

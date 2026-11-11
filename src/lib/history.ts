@@ -30,6 +30,48 @@ export function periodDays(period: Pick<WorkPeriod, "start" | "end">): number {
   return range.end - range.start;
 }
 
+export interface CoverageSegment {
+  start: string;
+  end: string;
+  days: number;
+  kind: "covered" | "additional";
+}
+
+/** Splits a period into exact date ranges already covered by the supplied periods
+ * and remaining days. It does not determine legal eligibility. */
+export function splitPeriodByCoverage(
+  period: Pick<WorkPeriod, "start" | "end">,
+  coveringPeriods: Pick<WorkPeriod, "start" | "end">[],
+): CoverageSegment[] {
+  const target = toRange(period);
+  const covered = union(coveringPeriods.map(toRange))
+    .map((range) => ({
+      start: Math.max(target.start, range.start),
+      end: Math.min(target.end, range.end),
+    }))
+    .filter((range) => range.start < range.end);
+  const segments: CoverageSegment[] = [];
+  const date = (day: number) =>
+    new Date(day * DAY_MS).toISOString().slice(0, 10);
+  const add = (start: number, end: number, kind: CoverageSegment["kind"]) => {
+    if (start < end)
+      segments.push({
+        start: date(start),
+        end: date(end - 1),
+        days: end - start,
+        kind,
+      });
+  };
+  let cursor = target.start;
+  for (const range of covered) {
+    add(cursor, range.start, "additional");
+    add(range.start, range.end, "covered");
+    cursor = range.end;
+  }
+  add(cursor, target.end, "additional");
+  return segments;
+}
+
 function union(ranges: Range[]): Range[] {
   const sorted = ranges
     .map((range) => ({ ...range }))

@@ -42,6 +42,7 @@ import { Brand } from "./brand";
 import { LegalInfo } from "./legal-info";
 import { Modal } from "./modal";
 import { StatusBadge } from "./status-badge";
+import { HistoryExplorer } from "./history-explorer";
 
 const workTypeLabels = {
   employment: "Umowa o pracę",
@@ -307,6 +308,10 @@ export function Workspace({
                 Lata i miesiące są orientacyjne. Dokładny wynik pokazujemy w
                 dniach. <LegalInfo label="Sposób liczenia" />
               </p>
+              <HistoryExplorer
+                scenario={scenario}
+                onInspect={setSelectedPeriod}
+              />
               <div className="dashboard-columns">
                 <section className="panel history-preview">
                   <div className="panel-heading">
@@ -378,12 +383,19 @@ export function Workspace({
                     potrzebuje dokumentów.
                   </h2>
                   <p>{scenario.lesson}</p>
-                  <button
+                  <Link
                     className="button button-primary"
+                    href={`/sprawa/${scenario.id}`}
+                  >
+                    Przygotuj sprawę krok po kroku{" "}
+                    <ArrowRight size={17} aria-hidden="true" />
+                  </Link>
+                  <button
+                    className="text-link next-step-documents"
                     onClick={() => setDocumentsOpen(true)}
                   >
                     Zobacz listę dokumentów{" "}
-                    <ArrowRight size={17} aria-hidden="true" />
+                    <ChevronRight size={14} aria-hidden="true" />
                   </button>
                   <span className="next-step-small">
                     <LockKeyhole size={13} aria-hidden="true" /> Niczego nie

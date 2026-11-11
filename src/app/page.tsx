@@ -9,6 +9,7 @@ import {
   History,
   LockKeyhole,
   MousePointer2,
+  Play,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -47,6 +48,13 @@ export default function Home() {
             >
               Sprawdź swoją historię pracy{" "}
               <ArrowRight size={19} aria-hidden="true" />
+            </Link>
+            <Link href="/demo" className="hero-demo-link">
+              <span>
+                <Play size={14} aria-hidden="true" />
+              </span>{" "}
+              Zobacz różnicę w 90 sekund{" "}
+              <ArrowUpRight size={15} aria-hidden="true" />
             </Link>
             <div className="hero-reassurance">
               <span>

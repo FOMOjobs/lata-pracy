@@ -178,9 +178,9 @@ describe("praca z fikcyjną historią", () => {
       "Potencjalnie do doliczenia: 181 dodatkowych dni",
     );
     expect(content).toContain("TODO:");
-    expect(screen.getByRole("status")).toHaveTextContent(
-      "Pobrano demonstracyjne podsumowanie",
-    );
+    expect(
+      screen.getByText("Pobrano demonstracyjne podsumowanie w formacie TXT."),
+    ).toBeInTheDocument();
     click.mockRestore();
   });
 });
