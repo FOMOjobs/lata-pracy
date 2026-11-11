@@ -2,11 +2,12 @@
 .workspace-more {
   position: relative;
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 14px;
   align-self: flex-start;
   margin-top: 16px;
 }
 .workspace-more > summary {
+  min-height: 44px;
   padding: 12px 16px;
   border: 1px solid #d8e3f1;
   border-radius: 7px;
@@ -26,8 +27,8 @@
   box-shadow: 0 8px 25px #142b4e15;
 }
 .workspace-more .text-link {
-  font-size: 12px;
-  min-height: 38px;
+  font-size: 14px;
+  min-height: 44px;
 }
 .workspace-main > .history-explorer {
   margin-top: 22px;
@@ -42,7 +43,7 @@
   line-height: 1.4;
 }
 .history-explorer .comparison-delta > span {
-  font-size: 12px;
+  font-size: 14px;
 }
 .explorer-facts {
   display: grid;
@@ -55,22 +56,22 @@
 }
 .explorer-facts dt {
   font-weight: 650;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 8px;
   color: #294d7c;
 }
 .explorer-facts dd {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.85;
   color: #4c678a;
   margin: 0;
 }
 .explorer-footer > .button {
-  font-size: 12px;
+  font-size: 14px;
   flex-shrink: 0;
 }
 .categories-caption {
-  font-size: 11px;
+  font-size: 13px;
   color: #4c678a;
   line-height: 1.8;
   margin: 0 0 12px;
@@ -95,8 +96,8 @@
   width: 16px;
 }
 .stats-compact .stat-card h2 {
-  font-size: 12px;
-  min-height: 40px;
+  font-size: 14px;
+  min-height: 44px;
   line-height: 1.7;
   margin-bottom: 5px;
 }
@@ -105,7 +106,7 @@
   letter-spacing: -0.6px;
 }
 .stats-compact .stat-exact {
-  font-size: 11px;
+  font-size: 13px;
   color: #4c678a;
 }
 .dashboard-history {
@@ -126,8 +127,125 @@
 .dashboard-history .preview-period .status-badge {
   margin-left: auto;
 }
+/* Progressive disclosure keeps the main result and the document declarations simple. */
+.full-history-summary {
+  margin-top: 24px;
+  border: 1px solid #dce5f1;
+  border-radius: 10px;
+  padding: 4px 18px;
+  background: white;
+}
+.full-history-summary > summary {
+  min-height: 48px;
+  padding: 13px 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.6;
+  color: #345a8c;
+}
+.full-history-summary[open] {
+  padding-bottom: 18px;
+}
+.stats-compact .stat-value-review {
+  line-height: 1.4;
+  max-width: 140px;
+}
+.stat-value-review small {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 450;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+.coverage-review-breakdown {
+  margin-top: 20px;
+  padding: 17px;
+  border: 1px solid #dce5f1;
+  border-radius: 8px;
+  background: #f8faff;
+}
+.coverage-review-breakdown h3 {
+  margin: 0 0 13px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.coverage-review-breakdown > p {
+  margin-top: 13px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #4c678a;
+}
+.coverage-dot-conditional,
+.coverage-dot.coverage-conditional {
+  background: #c69b57;
+}
+.document-scope-options {
+  margin-top: 20px;
+  border: 1px solid #dce5f1;
+  border-radius: 8px;
+  padding-inline: 16px;
+  background: #f8faff;
+}
+.document-scope-options > summary {
+  min-height: 48px;
+  padding-block: 13px;
+  cursor: pointer;
+  color: #345a8c;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.6;
+}
+.document-scope-options > p {
+  margin: 4px 0 12px;
+  color: #4c678a;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.document-scope-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 12px;
+}
+.document-scope-list .document-preparation-scope {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.case-local-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 15px 17px;
+  border: 1px solid #dce5f1;
+  border-radius: 8px;
+  background: #f3f7fd;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #4c678a;
+}
+.case-local-note > svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.case-export-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-width: 0;
+  margin-block: 18px;
+}
+.case-export-actions .button {
+  min-height: 48px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.6;
+}
 .document-preparation-note {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.85;
   color: #4c678a;
   margin: 14px 0 18px;
@@ -156,6 +274,10 @@
   align-items: flex-start;
   gap: 10px;
 }
+.document-preparation-heading > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 .document-preparation-heading > svg {
   flex-shrink: 0;
   color: #5277a9;
@@ -172,13 +294,13 @@
   display: block;
 }
 .document-preparation-period {
-  font-size: 11px;
+  font-size: 13px;
   color: #4c678a;
   line-height: 1.85;
   margin-top: 5px;
 }
 .document-preparation-hint {
-  font-size: 12px;
+  font-size: 14px;
   color: #4c678a;
   line-height: 1.85;
   margin: 13px 0 17px;
@@ -195,10 +317,10 @@
   flex-direction: column;
   gap: 6px;
   flex: 1;
-  min-width: 180px;
+  min-width: min(180px, 100%);
 }
 .document-preparation-availability label {
-  font-size: 11px;
+  font-size: 13px;
   color: #405f87;
 }
 .document-preparation-availability select {
@@ -215,11 +337,12 @@
   display: flex;
   align-items: flex-start;
   gap: 9px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
-  margin-top: 19px;
+  margin-top: 0;
   cursor: pointer;
-  padding: 8px 0;
+  min-height: 44px;
+  padding: 10px 0;
 }
 .document-preparation-scope input {
   width: 17px;
@@ -232,7 +355,7 @@
   display: flex;
   gap: 7px;
   align-items: flex-start;
-  font-size: 11px;
+  font-size: 13px;
   color: #3b6755;
   line-height: 1.85;
   margin-top: 15px;
@@ -257,13 +380,13 @@
   margin-top: 2px;
 }
 .document-gap-summary strong {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.85;
   color: #71542d;
   font-weight: 650;
 }
 .document-gap-summary p {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.85;
   color: #715b3c;
   margin-top: 5px;
@@ -274,13 +397,13 @@
 .document-gap-details summary {
   cursor: pointer;
   padding: 9px 0;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: #72552c;
-  min-height: 40px;
+  min-height: 44px;
 }
 .document-gap-fact {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.85;
   color: #5b6572;
   margin-top: 11px;
@@ -294,19 +417,20 @@
   color: #4d5f76;
 }
 .document-gap-steps li {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.9;
   margin-block: 9px;
   padding-left: 4px;
 }
 .document-gap-source.text-link {
-  font-size: 12px;
+  min-height: 44px;
+  font-size: 14px;
   flex-wrap: wrap;
   line-height: 1.85;
   color: #315a90;
 }
 .document-gap-limitation {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.9;
   color: #6b583c;
   margin-top: 12px;
@@ -337,12 +461,12 @@
 }
 .case-more-options > .text-link {
   display: flex;
-  min-height: 42px;
-  font-size: 12px;
+  min-height: 44px;
+  font-size: 14px;
 }
 .packet-document-status {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.85;
   color: #4c678a;
   margin-top: 4px;
@@ -351,7 +475,7 @@
   flex: 1;
 }
 .packet-readiness {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.9;
   color: #71542d;
   padding: 12px;
@@ -378,7 +502,7 @@
     padding: 15px;
   }
   .stats-compact .stat-card h2 {
-    font-size: 11px;
+    font-size: 13px;
   }
   .stats-compact .stat-value {
     font-size: 25px;
@@ -418,7 +542,7 @@
     grid-column: 1;
     grid-row: 1;
     min-height: 0;
-    font-size: 12px;
+    font-size: 14px;
     margin: 0;
   }
   .stats-compact .stat-value {
@@ -458,18 +582,47 @@
   .document-preparation-availability {
     min-width: 100%;
   }
+  .document-preparation-availability select,
+  .case-draft-section textarea {
+    font-size: 16px;
+  }
   .document-preparation-scope {
     margin-top: 0;
   }
   .document-gap-source.text-link {
-    font-size: 11px;
+    font-size: 14px;
+  }
+  .case-export-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .case-export-actions .button {
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+    min-height: 50px;
+  }
+  .full-history-summary {
+    padding-inline: 12px;
+  }
+  .stats-compact .stat-card {
+    grid-template-columns: minmax(0, 1fr) minmax(75px, 0.8fr);
+    gap: 5px 12px;
+    padding-inline: 14px;
+  }
+  .stats-compact .stat-value-review {
+    text-align: right;
   }
   .case-print-hint {
     text-align: left;
   }
 }
 @media print {
+  .case-route .case-export-actions,
   .case-route .case-more-options,
+  .case-route .case-local-note,
+  .case-route .case-copy-status,
+  .case-route .document-scope-options,
   .case-route .case-print-hint {
     display: none !important;
   }

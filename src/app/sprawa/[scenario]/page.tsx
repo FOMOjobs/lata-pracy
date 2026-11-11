@@ -17,7 +17,7 @@ export async function generateMetadata({
   const scenario = getScenario((await params).scenario);
   return {
     title: scenario
-      ? `Przygotuj sprawę: ${scenario.name}`
+      ? `Podsumowanie dla kadr: ${scenario.name}`
       : "Nie znaleziono historii",
   };
 }

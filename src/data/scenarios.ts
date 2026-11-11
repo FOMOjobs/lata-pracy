@@ -278,11 +278,11 @@ export const scenarios: Scenario[] = [
         start: "2022-03-01",
         end: "2022-08-31",
         description:
-          "Dokumentacja współpracy jest niepełna. Wszystkie dni tego okresu pokrywają się już z innymi okresami historii.",
+          "Dokumentacja współpracy jest niepełna. Część dat pokrywa etat, a część wyłącznie zlecenie wymagające sprawdzenia.",
         conditions: [
           "Ustal rodzaj umowy i faktyczne daty współpracy.",
           "Sprawdź warunki ustawowe po wyjaśnieniu rodzaju umowy.",
-          "Uwzględnij pełne pokrywanie się dni z pozostałymi okresami.",
+          "Oddziel pokrycie etatem od pokrycia potencjalnym zleceniem.",
         ],
         documents: [
           {
@@ -292,7 +292,7 @@ export const scenarios: Scenario[] = [
           },
         ],
         legalTodo:
-          "TODO: ustalić rodzaj umowy oraz dokumenty. Niezależnie od kwalifikacji, ten okres nie dodaje nowych dni do tej historii.",
+          "TODO: ustalić rodzaj umowy i dokumenty. Zero nowych dni dotyczy całej pokazanej historii, w tym potencjalnego zlecenia. Jeśli zlecenie nie zostanie zaliczone, znaczenie tej współpracy trzeba ocenić osobno.",
       },
       {
         id: "ola-job-2",

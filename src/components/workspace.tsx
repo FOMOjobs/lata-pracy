@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import {
   ArrowDownToLine,
   ArrowLeft,
@@ -33,6 +33,7 @@ import {
   formatDateRange,
   formatNumber,
   parseDay,
+  splitPeriodByStatusCoverage,
   summarizeHistory,
 } from "@/lib/history";
 import { statusMeta } from "@/lib/legal";
@@ -43,6 +44,7 @@ import { Modal } from "./modal";
 import { StatusBadge } from "./status-badge";
 import { HistoryExplorer } from "./history-explorer";
 import { DocumentPreparation } from "./document-preparation";
+import { ReviewCoverageBreakdown } from "./coverage-breakdown";
 import { useCaseSession } from "@/lib/case-session";
 
 const workTypeLabels = {
@@ -94,12 +96,20 @@ export function Workspace({
       "",
       `Uwzględnione w przykładzie: ${summary.days.included} unikalnych dni`,
       `Potencjalnie do doliczenia: ${summary.days.potential} dodatkowych dni (warunkowo)`,
-      `Do weryfikacji: ${summary.days.review} dodatkowych dni (nie wliczono do potencjalnego stażu)`,
+      `Liczba okresów do wyjaśnienia: ${scenario.periods.filter((period) => period.status === "review").length}. Wkład względem całej historii: ${summary.days.review} dni (nie wliczono do wyniku warunkowego; pokrycie obejmuje także okresy potencjalne).`,
       `Pominięte powtórzenia dni: ${summary.repeatedDays}`,
       "",
       ...scenario.periods.flatMap((period) => [
         `${period.title} | ${formatDateRange(period)} | ${statusMeta[period.status].label}`,
         `Wkład do kategorii: ${summary.contributions[period.id].additionalDays} dni. Pominięte powtórzenia: ${summary.contributions[period.id].repeatedDays}.`,
+        ...(period.status === "review"
+          ? splitPeriodByStatusCoverage(
+              period,
+              scenario.periods.filter((item) => item.id !== period.id),
+            ).map((segment) =>
+              `${formatDateRange(segment)}: ${segment.days} dni — ${segment.kind === "included" ? "pokryte etatem z podstawy przykładu" : segment.kind === "potential" ? "pokryte wyłącznie okresem potencjalnym; jeśli nie zostanie zaliczony, ocenę trzeba powtórzyć" : "poza etatami i okresami potencjalnymi; wymagają wyjaśnienia"}.`,
+            )
+          : []),
         ...period.conditions.map(
           (condition) => `  Do sprawdzenia: ${condition}`,
         ),
@@ -248,52 +258,76 @@ export function Workspace({
                 scenario={scenario}
                 onInspect={setSelectedPeriod}
               />
-              <p className="categories-caption">
-                Trzy kategorie całej fikcyjnej historii — niezależnie od wyboru
-                w porównaniu.
-              </p>
-              <div className="stats-grid stats-compact">
-                {(["included", "potential", "review"] as const).map(
-                  (status) => {
-                    const Icon =
-                      status === "included"
-                        ? CheckCheck
-                        : status === "potential"
-                          ? Plus
-                          : CircleHelp;
-                    const count = scenario.periods.filter(
-                      (period) => period.status === status,
-                    ).length;
-                    return (
-                      <article
-                        className={`stat-card stat-${status}`}
-                        key={status}
-                      >
-                        <div className="stat-card-top">
-                          <span className="stat-icon">
-                            <Icon size={20} aria-hidden="true" />
-                          </span>
-                          <span>
-                            {count} {count === 1 ? "okres" : "okresy"}
-                          </span>
-                        </div>
-                        <h2>{statusMeta[status].label}</h2>
-                        <span className="stat-value">
-                          {formatNumber(summary.days[status])}{" "}
-                          <small>dni</small>
-                        </span>
-                        <span className="stat-exact">
-                          ok. {approximateDuration(summary.days[status])}
-                        </span>
-                      </article>
-                    );
-                  },
-                )}
-              </div>
-              <p className="calculation-note">
-                Lata i miesiące są orientacyjne. Dokładny wynik pokazujemy w
-                dniach. <LegalInfo label="Sposób liczenia" />
-              </p>
+              <details className="full-history-summary">
+                <summary>Cała historia</summary>
+                <p className="categories-caption">
+                  Trzy kategorie całej fikcyjnej historii — niezależnie od wyboru
+                  w porównaniu.
+                </p>
+                <div className="stats-grid stats-compact">
+                  {(["included", "potential", "review"] as const).map(
+                    (status) => {
+                      const Icon =
+                        status === "included"
+                          ? CheckCheck
+                          : status === "potential"
+                            ? Plus
+                            : CircleHelp;
+                      const count = scenario.periods.filter(
+                        (period) => period.status === status,
+                      ).length;
+                      return (
+                        <article
+                          className={`stat-card stat-${status}`}
+                          key={status}
+                        >
+                          <div className="stat-card-top">
+                            <span className="stat-icon">
+                              <Icon size={20} aria-hidden="true" />
+                            </span>
+                            <span>
+                              {count} {count === 1 ? "okres" : "okresy"}
+                            </span>
+                          </div>
+                          <h2>{statusMeta[status].label}</h2>
+                          {status === "review" ? (
+                            <>
+                              <span className="stat-value stat-value-review">
+                                {count}{" "}
+                                <small>
+                                  {count === 1
+                                    ? "okres do wyjaśnienia"
+                                    : count > 1 && count < 5
+                                      ? "okresy do wyjaśnienia"
+                                      : "okresów do wyjaśnienia"}
+                                </small>
+                              </span>
+                              <span className="stat-exact">
+                                Nie wliczamy do wyniku warunkowego, także gdy
+                                daty pokrywają się z innymi okresami.
+                              </span>
+                            </>
+                          ) : (
+                            <>
+                              <span className="stat-value">
+                                {formatNumber(summary.days[status])}{" "}
+                                <small>dni</small>
+                              </span>
+                              <span className="stat-exact">
+                                ok. {approximateDuration(summary.days[status])}
+                              </span>
+                            </>
+                          )}
+                        </article>
+                      );
+                    },
+                  )}
+                </div>
+                <p className="calculation-note">
+                  Lata i miesiące są orientacyjne. Dokładny wynik pokazujemy w
+                  dniach. <LegalInfo label="Sposób liczenia" />
+                </p>
+              </details>
               <div className="dashboard-history">
                 <section className="panel history-preview">
                   <div className="panel-heading">
@@ -390,7 +424,11 @@ export function Workspace({
               </strong>
             </div>
             <div>
-              <span>Nowe dni w tej kategorii</span>
+              <span>
+                {selectedPeriod.status === "review"
+                  ? "Wkład względem całej historii, także okresów potencjalnych"
+                  : "Nowe dni w tej kategorii"}
+              </span>
               <strong>
                 {formatNumber(
                   summary.contributions[selectedPeriod.id].additionalDays,
@@ -399,7 +437,12 @@ export function Workspace({
               </strong>
             </div>
           </div>
-          {summary.contributions[selectedPeriod.id].repeatedDays > 0 && (
+          {selectedPeriod.status === "review" ? (
+            <ReviewCoverageBreakdown
+              period={selectedPeriod}
+              periods={scenario.periods}
+            />
+          ) : summary.contributions[selectedPeriod.id].repeatedDays > 0 && (
             <div className="notice">
               <GitCompareArrows size={21} aria-hidden="true" />
               <p>
@@ -482,6 +525,22 @@ export function Workspace({
   );
 }
 
+const MOBILE_HISTORY_QUERY = "(max-width: 767px)";
+
+function subscribeToMobileHistory(onChange: () => void) {
+  const media = window.matchMedia?.(MOBILE_HISTORY_QUERY);
+  media?.addEventListener("change", onChange);
+  return () => media?.removeEventListener("change", onChange);
+}
+
+function isMobileHistory() {
+  return window.matchMedia?.(MOBILE_HISTORY_QUERY).matches ?? false;
+}
+
+function desktopHistorySnapshot() {
+  return false;
+}
+
 function Timeline({
   scenario,
   onSelect,
@@ -490,7 +549,13 @@ function Timeline({
   onSelect: (period: WorkPeriod) => void;
 }) {
   const [filter, setFilter] = useState<PeriodStatus | "all">("all");
-  const [view, setView] = useState<"timeline" | "list">("timeline");
+  const mobile = useSyncExternalStore(
+    subscribeToMobileHistory,
+    isMobileHistory,
+    desktopHistorySnapshot,
+  );
+  const [chosenView, setView] = useState<"timeline" | "list" | null>(null);
+  const view = chosenView ?? (mobile ? "list" : "timeline");
   const [order, setOrder] = useState("oldest");
   const summary = summarizeHistory(scenario.periods);
   const periods = scenario.periods

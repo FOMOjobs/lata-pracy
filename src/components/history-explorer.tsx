@@ -152,7 +152,7 @@ export function HistoryExplorer({
               : uncheckedDocument
                 ? `Zacznij od dokumentu: ${uncheckedDocument.title}.`
                 : selectedIds.length
-                  ? "Przejrzyj wybrany zakres i przygotuj projekt do rozmowy z pracodawcą."
+                  ? "Przejrzyj wybrany zakres i przygotuj podsumowanie dla kadr."
                   : "Wybierz co najmniej jeden wcześniejszy okres."}
           </dd>
         </div>
@@ -180,12 +180,12 @@ export function HistoryExplorer({
             className="button button-primary"
             href={`/sprawa/${scenario.id}`}
           >
-            Przygotuj sprawę krok po kroku{" "}
+            Przygotuj podsumowanie dla kadr{" "}
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
         ) : (
           <span className="explorer-hint">
-            Wybierz okres, aby przygotować sprawę.
+            Wybierz okres, aby przygotować podsumowanie dla kadr.
           </span>
         )}
       </div>

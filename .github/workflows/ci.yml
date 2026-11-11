@@ -1,7 +1,7 @@
 name: Kontrola jakości
 on:
   push:
-    branches: [main, feat/contest-prototype]
+    branches: [main, 'feat/**']
   pull_request:
     branches: [main]
 permissions:
@@ -18,5 +18,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+      - run: npm run build:static
         env:
           NEXT_TELEMETRY_DISABLED: 1

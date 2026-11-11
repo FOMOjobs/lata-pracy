@@ -25,7 +25,9 @@ ZUS opisuje elektroniczny wniosek USP dotyczący odpowiednich okresów ubezpiecz
 - Przybliża prezentację lat i miesięcy przez 365 dni / rok i 30 dni / miesiąc. Wyjaśnienie jest dostępne przy wyniku oraz w eksporcie.
 - Nie wlicza kategorii „do weryfikacji” do kategorii potencjalnej.
 
-Nie obliczamy prawa do urlopu, świadczeń, dodatków, emerytury ani terminów roszczeń. Nie utożsamiamy stażu pracowniczego z okresem składkowym do emerytury.
+Nie obliczamy prawa do urlopu, świadczeń, dodatków, emerytury ani terminów roszczeń. Nie utożsamiamy stażu pracowniczego z okresem składkowym do emerytury. Nie stosujemy progu „3650 dni = 10 lat” do przyznawania uprawnień: uproszczenie dni nie zastępuje właściwego sposobu ustalenia stażu i pełnych przesłanek dla danego celu.
+
+Zerowy wkład okresu do pełnej historii nie dowodzi, że wszystkie jego dni są już prawnie uwzględnione. U Oli 62 dni dodatkowej współpracy pokrywa etat przyjęty w przykładzie, a 122 dni wyłącznie potencjalne zlecenie. Jeśli to zlecenie nie zostanie zaliczone, znaczenie współpracy wymaga osobnej oceny. Aplikacja nie zaleca rezygnacji z poszukiwania dokumentów na podstawie samego pokrycia dat.
 
 ## Prawne TODO przed obsługą prawdziwych historii
 

@@ -11,11 +11,11 @@
 3. Pobierz prototyp i przejdź do jego katalogu:
 
    ```sh
-   git clone --branch feat/contest-prototype https://github.com/FOMOjobs/lata-pracy.git
+   git clone https://github.com/FOMOjobs/lata-pracy.git
    cd lata-pracy
    ```
 
-   Gałąź `feat/contest-prototype` zawiera pierwszy prototyp do przeglądu w PR. Po jego scaleniu można korzystać z `main`.
+   Polecenie pobiera gałąź `main`. Jeśli sprawdzasz zmiany z Pull Requestu, przełącz się na gałąź wskazaną w tym PR.
 
 4. Zainstaluj zależności:
 
@@ -37,19 +37,19 @@ Jeśli port 3000 jest zajęty, przeczytaj adres wypisany w terminalu lub uruchom
 
 ## Sprawdź aplikację w 3 minuty
 
-Na krótki pokaz wybierz **„Zobacz różnicę w 90 sekund”** albo otwórz `/demo`. Trzy rozdziały prowadzą od historii Oli przez rozbicie 1126 dni zlecenia na 945 dni już w podstawie i 181 nowych dni, aż do przygotowania sprawy.
+Na krótki pokaz wybierz **„Zobacz różnicę w 90 sekund”** albo otwórz `/demo`. Trzy rozdziały prowadzą od historii Oli przez rozbicie 1126 dni zlecenia na 945 dni już w podstawie i 181 nowych dni, aż do podsumowania dla kadr.
 
 1. Na stronie startowej kliknij **„Sprawdź swoją historię pracy”**.
-2. Wybierz **Kasię**. Pulpit prowadzi przez jedno porównanie i główne działanie **„Przygotuj sprawę krok po kroku”**. Niżej pokazuje trzy kompaktowe kategorie całej fikcyjnej historii: uwzględnione, potencjalne i do weryfikacji.
+2. Wybierz **Kasię**. Pulpit prowadzi przez jedno porównanie i główne działanie **„Przygotuj podsumowanie dla kadr”**. Rozwiń **„Cała historia”**, aby zobaczyć kategorie całego fikcyjnego zestawienia, niezależne od wybranego porównania.
 3. Kliknij okres albo **„Otwórz oś czasu”**. Otwórz szczegóły, przeczytaj warunki i zobacz dokumenty do przygotowania.
-4. Wypróbuj filtry, widok listy i kolejność okresów. Na telefonie oś można przewijać poziomo; lista daje ten sam dostęp do szczegółów.
-5. Przełącz scenariusz na **Olę**. Jej zlecenie dodaje tylko **181 dni** poza etatem; pokrywających się dni nie doliczamy drugi raz. Dodatkowa współpraca wnosi **0 nowych dni**.
+4. Wypróbuj filtry, widok listy i kolejność okresów. Na telefonie historia rozpoczyna się od listy; możesz przełączyć ją na oś z własnym przewijaniem poziomym. Oba widoki otwierają te same szczegóły.
+5. Przełącz scenariusz na **Olę**. Jej zlecenie ma **181 dni poza etatami**, potencjalnie do sprawdzenia; pokrywających się dni nie doliczamy drugi raz. W szczegółach dodatkowej współpracy zobaczysz **62 dni pokryte etatem i 122 dni pokryte tylko potencjalnym zleceniem**. Wynik 0 względem całej historii nie oznacza, że ten okres lub jego dokumenty nie wymagają uwagi.
 6. Otwórz **„Listę dokumentów”**. Przy przykładowym dokumencie ustaw **„Nie mam dokumentu”**, a potem rozwiń **„Jak uzupełnić ten brak?”**. Zobaczysz konkretny następny krok i oficjalne źródło. Dostępność jest deklaracją, nie weryfikacją dokumentu ani prawa do zaliczenia okresu.
-7. W głównym porównaniu włącz lub wyłącz wcześniejszy okres i rozwiń wyjaśnienie dat. Podpis pod porównaniem przypomina, że trzy kategorie poniżej opisują całą historię niezależnie od wyboru. **„Więcej” → „Pobierz podsumowanie TXT”** zapisuje pełne fikcyjne zestawienie; **„Jak czytać wynik”** otwiera zasady i źródła.
-8. Kliknij **„Przygotuj sprawę krok po kroku”**. Wybrane okresy i deklaracje dostępności przejdą do przygotowania sprawy. Osobno wybierz nazwy dokumentów do ujęcia w projekcie. Przejrzyj samą kartę, zaznacz zrozumienie demonstracji i kliknij **„Przygotuj projekt”**.
-9. Główne działanie na końcu to **„Drukuj kartę”**; w oknie drukowania możesz wybrać zapis PDF. Pod **„Więcej możliwości”** znajdziesz wiadomość, kopiowanie i TXT. Brakujące lub nieustalone dokumenty pozostają widoczne. Nic nie jest wysyłane.
+7. W głównym porównaniu włącz lub wyłącz wcześniejszy okres i rozwiń wyjaśnienie dat. Rozwinięcie **„Cała historia”** dotyczy pełnego zestawu, a kategoria wymagająca weryfikacji podkreśla liczbę okresów do wyjaśnienia. **„Więcej” → „Pobierz podsumowanie całej historii TXT”** zapisuje pełne fikcyjne zestawienie; **„Jak czytać wynik”** otwiera zasady i źródła.
+8. Kliknij **„Przygotuj podsumowanie dla kadr”**. Przejdź trzy kroki: **„Wybierz okresy” → „Sprawdź dokumenty” → „Podsumowanie dla kadr”**. Wybory i deklaracje przejdą między ekranami. Jeśli chcesz ograniczyć listę nazw dokumentów, rozwiń **„Dostosuj zawartość”**; dostępność i zakres pozostają osobnymi wyborami.
+9. Na końcu od razu dostępne są **„Drukuj / zapisz jako PDF”** i **„Kopiuj wiadomość do kadr”**. Pełny tekst i TXT znajdziesz pod **„Więcej możliwości”**. Braki pozostają na karcie i w wiadomości. Nie ma checkboxa udającego zatwierdzenie wniosku; podsumowanie powstaje lokalnie i nic nie jest wysyłane. Zapis PDF zależy od opcji systemowego okna drukowania.
 
-W nowej sesji potencjalne okresy i ich nazwy dokumentów są domyślnie wybrane, a ich dostępność ma stan **„Nie wiem jeszcze”**. Wybory są wspólne dla ekranów i zapisywane osobno dla scenariuszy w `sessionStorage`: zachowują się po nawigacji i odświeżeniu w tej samej karcie. Zapisywane są tylko identyfikatory fikcyjnych okresów i dokumentów oraz deklaracje dostępności — bez plików, danych osobowych i treści wiadomości. Bieżący krok i potwierdzenie symulacji nie są utrwalane. Przy zablokowanym zapisie przeglądarki aplikacja działa w pamięci, ale odświeżenie może usunąć wybory.
+W nowej sesji potencjalne okresy i ich nazwy dokumentów są domyślnie wybrane, a ich dostępność ma stan **„Nie wiem jeszcze”**. Wybory są wspólne dla ekranów i zapisywane osobno dla scenariuszy w `sessionStorage`: zachowują się po nawigacji i odświeżeniu w tej samej karcie. Zapisywane są tylko identyfikatory fikcyjnych okresów i dokumentów oraz deklaracje dostępności — bez plików, danych osobowych i treści wiadomości. Bieżący krok kreatora nie jest utrwalany. Przy zablokowanym zapisie przeglądarki aplikacja działa w pamięci, ale odświeżenie może usunąć wybory.
 
 ## Ekrany
 
@@ -60,7 +60,7 @@ W nowej sesji potencjalne okresy i ich nazwy dokumentów są domyślnie wybrane,
 | `/pulpit/kasia`   | Pulpit wybranego scenariusza; działa też dla `marek` i `ola`                                            |
 | `/historia/kasia` | Interaktywna oś czasu; działa też dla `marek` i `ola`                                                   |
 | `/demo`           | Krótka, interaktywna prezentacja historii Oli w trzech rozdziałach                                      |
-| `/sprawa/kasia`   | Wybór zakresu, podgląd i potwierdzenie przygotowania fikcyjnego pakietu; działa też dla `marek` i `ola` |
+| `/sprawa/kasia`   | Trzy kroki do lokalnego podsumowania dla kadr; działa też dla `marek` i `ola` |
 
 ## Kontrola jakości
 
@@ -72,7 +72,7 @@ npm run build      # produkcyjny build Next.js
 npm run check      # wszystkie powyższe kolejno
 ```
 
-Testy obejmują m.in. lata przestępne, zmianę czasu, błędne daty, zagnieżdżone i wielokrotne nakładanie okresów, niezależny model zbiorów dla 100 historii, scenariusz Oli, filtry, sortowanie, szczegóły, eksport TXT, rozbicie dat na odcinki, porównanie warunkowe, wspólne wybory między ekranami, zapis sesji, ścieżkę brakującego dokumentu, odrębność dostępności i zakresu pakietu, wymagane potwierdzenie przed eksportem oraz awaryjne kopiowanie. jsdom nie sprawdza układu, kontrastu, natywnego zarządzania fokusem ani wyniku drukowania. Procedura sprawdzenia w przeglądarce znajduje się w [docs/TESTING.md](docs/TESTING.md).
+Testy obejmują m.in. lata przestępne, zmianę czasu, błędne daty, zagnieżdżone i wielokrotne nakładanie okresów, niezależny model zbiorów dla 100 historii, scenariusz Oli, filtry, sortowanie, szczegóły, eksport TXT, rozbicie dat na odcinki, porównanie warunkowe, wspólne wybory między ekranami, zapis sesji, ścieżkę brakującego dokumentu, odrębność dostępności i zakresu pakietu, bezpośredni eksport na końcu trzech kroków oraz awaryjne kopiowanie. jsdom nie sprawdza układu, kontrastu, natywnego zarządzania fokusem ani wyniku drukowania. Procedura sprawdzenia w przeglądarce znajduje się w [docs/TESTING.md](docs/TESTING.md).
 
 GitHub Actions wykonuje `npm ci` i `npm run check` dla Pull Requestów do `main`.
 
@@ -83,7 +83,13 @@ npm run build
 npm start
 ```
 
-Gotowy projekt można wdrożyć na hostingu obsługującym Next.js 16 i Node.js 22+. Ten PR przygotowuje kod; nie konfiguruje publicznego wdrożenia ani usług zewnętrznych.
+Standardowy build działa na hostingu obsługującym Next.js 16 i Node.js 22+. Dostępny jest również wariant statyczny:
+
+```sh
+npm run build:static
+```
+
+Polecenie przygotowuje katalog `out/` do hostingu statycznego; w tym wariancie każda znana trasa ma własny plik HTML. Nie uruchamiaj `npm start` do serwowania `out/`. Konfigurację publikacji prototypu w Sites zapisuje `.openai/hosting.json`; sam plik konfiguracji nie oznacza, że wdrożenie już działa. Publiczny adres i wynik weryfikacji należy potwierdzić przed zgłoszeniem do konkursu.
 
 ## Technologie i struktura
 

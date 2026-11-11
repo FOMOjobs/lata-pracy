@@ -22,7 +22,7 @@ export function PacketPreview({
   return (
     <article
       className="packet-preview printable-packet"
-      aria-label="Podgląd wybranego pakietu"
+      aria-label="Podsumowanie dla kadr"
     >
       <header className="packet-heading">
         <span className="packet-wordmark">
@@ -35,12 +35,13 @@ export function PacketPreview({
           HISTORIA: {scenario.name.toLocaleUpperCase("pl-PL")} · POSTAĆ FIKCYJNA
         </span>
         <h2>
-          Prośba o weryfikację
+          Podsumowanie
           <br />
-          okresów pracy.
+          dla kadr.
         </h2>
         <p>
-          Projekt do rozmowy z pracodawcą. Stan fikcyjnej historii: 31.10.2026.
+          Okresy i dokumenty do rozmowy z kadrami. Stan fikcyjnej historii:
+          31.10.2026.
         </p>
       </div>
       <div className="packet-callout">
@@ -100,7 +101,7 @@ export function PacketPreview({
       </section>
       <section>
         <h3>
-          <span>03</span> Wybrane nazwy dokumentów do przygotowania
+          <span>03</span> Dokumenty do przygotowania
         </h3>
         {documents.length > 0 ? (
           <ul className="packet-documents">
@@ -120,7 +121,7 @@ export function PacketPreview({
           </ul>
         ) : (
           <p className="packet-missing">
-            Nie wybrano dokumentów. Projekt wymaga uzupełnienia.
+            Nie wybrano dokumentów. Podsumowanie wymaga uzupełnienia.
           </p>
         )}
         <p className="packet-small">

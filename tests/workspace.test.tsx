@@ -1,13 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Workspace } from "@/components/workspace";
 import { scenarios } from "@/data/scenarios";
 import { routerPush } from "./setup";
 
 describe("praca z fikcyjną historią", () => {
-  it("pokazuje trzy różne kategorie, ostrzeżenie i nawigację do osi", () => {
+  it("zostawia jedno porównanie, a trzy kategorie udostępnia po rozwinięciu całej historii", async () => {
     render(<Workspace scenario={scenarios[0]} screen="dashboard" />);
+    expect(screen.getByRole("heading", { name: "Uwzględnione w przykładzie" })).not.toBeVisible();
+    await userEvent.click(screen.getByText("Cała historia", { selector: "summary" }));
     expect(
       screen.getByRole("heading", { name: "Uwzględnione w przykładzie" }),
     ).toBeVisible();
@@ -101,6 +103,7 @@ describe("praca z fikcyjną historią", () => {
   });
   it("zachowuje deklarację braku dokumentu bez zmiany statusów i wyliczeń", async () => {
     render(<Workspace scenario={scenarios[0]} screen="dashboard" />);
+    await userEvent.click(screen.getByText("Cała historia", { selector: "summary" }));
     const before = screen.getByRole("heading", {
       name: "Potencjalnie do doliczenia",
     }).parentElement!.textContent;
@@ -179,9 +182,43 @@ describe("praca z fikcyjną historią", () => {
       "Potencjalnie do doliczenia: 181 dodatkowych dni",
     );
     expect(content).toContain("TODO:");
+    expect(content).toContain("62 dni — pokryte etatem z podstawy przykładu");
+    expect(content).toContain("122 dni — pokryte wyłącznie okresem potencjalnym");
+    expect(content).toContain("jeśli nie zostanie zaliczony");
     expect(
       screen.getByText("Pobrano demonstracyjne podsumowanie w formacie TXT."),
     ).toBeInTheDocument();
     click.mockRestore();
+  });
+
+  it("nie ukrywa niepewnego okresu Oli za zerem i wyjaśnia źródła jego pokrycia", async () => {
+    render(<Workspace scenario={scenarios[2]} screen="dashboard" />);
+    await userEvent.click(screen.getByText("Cała historia", { selector: "summary" }));
+    expect(screen.getByText("okres do wyjaśnienia")).toBeVisible();
+    await userEvent.click(screen.getByRole("button", { name: /^Dodatkowa współpraca/ }));
+    const dialog = within(screen.getByRole("dialog"));
+    expect(dialog.getByText("62 dni pokrywają się z etatem przyjętym w przykładzie.")).toBeVisible();
+    expect(dialog.getByText("122 dni pokrywają się wyłącznie z okresem potencjalnym.")).toBeVisible();
+    expect(dialog.getByText(/Jeśli nie zostanie zaliczony, znaczenie tej współpracy/)).toBeVisible();
+    expect(dialog.queryByText(/Niezależnie od kwalifikacji/)).not.toBeInTheDocument();
+  });
+
+  it("na telefonie zaczyna od listy i zachowuje ręcznie wybrany widok po zmianie szerokości", async () => {
+    let mobile = true;
+    const listeners = new Set<() => void>();
+    vi.stubGlobal("matchMedia", vi.fn(() => ({
+      get matches() { return mobile; },
+      addEventListener: (_type: string, listener: () => void) => listeners.add(listener),
+      removeEventListener: (_type: string, listener: () => void) => listeners.delete(listener),
+    })));
+    render(<Workspace scenario={scenarios[2]} screen="timeline" />);
+    expect(screen.getByRole("button", { name: "Widok listy" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.queryByRole("region", { name: /Interaktywna oś/ })).not.toBeInTheDocument();
+    act(() => { mobile = false; listeners.forEach((listener) => listener()); });
+    expect(screen.getByRole("button", { name: "Widok osi czasu" })).toHaveAttribute("aria-pressed", "true");
+    await userEvent.click(screen.getByRole("button", { name: "Widok listy" }));
+    act(() => { mobile = true; listeners.forEach((listener) => listener()); });
+    act(() => { mobile = false; listeners.forEach((listener) => listener()); });
+    expect(screen.getByRole("button", { name: "Widok listy" })).toHaveAttribute("aria-pressed", "true");
   });
 });

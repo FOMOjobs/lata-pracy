@@ -67,7 +67,7 @@ describe("odkrywanie wpływu wybranego okresu", () => {
     );
     expect(inspect).toHaveBeenCalledWith(scenarios[0].periods[1]);
     expect(
-      screen.getByRole("link", { name: "Przygotuj sprawę krok po kroku" }),
+      screen.getByRole("link", { name: "Przygotuj podsumowanie dla kadr" }),
     ).toHaveAttribute("href", "/sprawa/kasia");
   });
 });
@@ -89,7 +89,7 @@ describe("trzy rozdziały demonstracji", () => {
       screen.getByRole("button", { name: "Zobacz następny krok" }),
     );
     expect(
-      screen.getByRole("link", { name: "Przygotuj sprawę Oli" }),
+      screen.getByRole("link", { name: "Przygotuj podsumowanie dla kadr" }),
     ).toHaveAttribute("href", "/sprawa/ola");
     await userEvent.click(screen.getByRole("button", { name: "Od początku" }));
     expect(

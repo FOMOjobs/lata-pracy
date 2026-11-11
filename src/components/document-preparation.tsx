@@ -48,7 +48,7 @@ export function DocumentPreparation({
         Dostępność to Twoja deklaracja w fikcyjnym przykładzie. Nie potwierdza
         dokumentu ani prawa do zaliczenia okresu.
         {hasScopeSelection &&
-          " Osobno wybierasz, które nazwy dokumentów uwzględnić w projekcie."}
+          " Domyślnie podsumowanie obejmuje dokumenty wybranych okresów. Jego zawartość możesz dostosować poniżej."}
       </p>
       <div className="document-preparation-list">
         {documents.map(({ document, period }) => {
@@ -99,18 +99,6 @@ export function DocumentPreparation({
                     <option value="have">Mam — do sprawdzenia</option>
                   </select>
                 </div>
-                {hasScopeSelection && (
-                  <label className="document-preparation-scope">
-                    <input
-                      type="checkbox"
-                      aria-label={`Uwzględnij w projekcie: ${document.title}`}
-                      checked={selectedDocumentIds.includes(document.id)}
-                      aria-describedby={`${id}-note`}
-                      onChange={() => onToggleSelected(document.id)}
-                    />
-                    <span>Uwzględnij w projekcie</span>
-                  </label>
-                )}
               </div>
 
               {currentAvailability === "have" && (
@@ -163,6 +151,29 @@ export function DocumentPreparation({
           );
         })}
       </div>
+      {hasScopeSelection && (
+        <details className="document-scope-options">
+          <summary>Dostosuj zawartość</summary>
+          <p>
+            Wybierz nazwy dokumentów do podsumowania. Odznaczenie nazwy nie
+            zmienia deklarowanej dostępności ani warunków zaliczenia okresu.
+            Nie dołączasz żadnych plików.
+          </p>
+          <div className="document-scope-list">
+            {documents.map(({ document }) => (
+              <label className="document-preparation-scope" key={document.id}>
+                <input
+                  type="checkbox"
+                  aria-label={`Uwzględnij w projekcie: ${document.title}`}
+                  checked={selectedDocumentIds.includes(document.id)}
+                  onChange={() => onToggleSelected(document.id)}
+                />
+                <span>{document.title}</span>
+              </label>
+            ))}
+          </div>
+        </details>
+      )}
     </div>
   );
 }
