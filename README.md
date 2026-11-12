@@ -1,6 +1,6 @@
 # Lata Pracy
 
-**Twoja praca się liczy.** Niezależny, polskojęzyczny prototyp konkursowy, który pomaga uporządkować historię zawodową i zobaczyć, jakie okresy warto zweryfikować w związku ze zmianami przepisów w 2026 r.
+**Twoja praca się liczy.** Autorski pulpit obywatela z jedną usługą doprowadzoną do podsumowania dla kadr. Niezależny, polskojęzyczny prototyp pomaga uporządkować historię zawodową i zobaczyć, jakie okresy warto zweryfikować w związku ze zmianami przepisów w 2026 r.
 
 **Demo bez logowania:** https://lata-pracy-demo.verbaltoucan.chatgpt.site — na krótki pokaz otwórz [historię Oli](https://lata-pracy-demo.verbaltoucan.chatgpt.site/demo/).
 
@@ -17,7 +17,7 @@
    cd lata-pracy
    ```
 
-   Polecenie pobiera gałąź `main`. Jeśli sprawdzasz zmiany z Pull Requestu, przełącz się na gałąź wskazaną w tym PR.
+   Polecenie pobiera gałąź `main`. Do czasu scalenia [PR #2](https://github.com/FOMOjobs/lata-pracy/pull/2) najnowszy pulpit sprawdzisz poleceniem `git switch feat/audit-ux-refinement`.
 
 4. Zainstaluj zależności:
 
@@ -39,17 +39,19 @@ Jeśli port 3000 jest zajęty, przeczytaj adres wypisany w terminalu lub uruchom
 
 ## Sprawdź aplikację w 3 minuty
 
-Na krótki pokaz wybierz **„Zobacz różnicę w 90 sekund”** albo otwórz `/demo`. Trzy rozdziały prowadzą od historii Oli przez rozbicie 1126 dni zlecenia na 945 dni już w podstawie i 181 nowych dni, aż do podsumowania dla kadr.
+Zacznij na **pulpicie obywatela `/`**. Osobna ścieżka `/demo` prowadzi przez trzy rozdziały prezentacji Oli; dotychczasowy opis koncepcji jest pod `/o-projekcie`.
 
-1. Na stronie startowej kliknij **„Sprawdź swoją historię pracy”**.
-2. Wybierz **Kasię**. Pulpit prowadzi przez jedno porównanie i główne działanie **„Przygotuj podsumowanie dla kadr”**. Rozwiń **„Cała historia”**, aby zobaczyć kategorie całego fikcyjnego zestawienia, niezależne od wybranego porównania.
-3. Kliknij okres albo **„Otwórz oś czasu”**. Otwórz szczegóły, przeczytaj warunki i zobacz dokumenty do przygotowania.
-4. Wypróbuj filtry, widok listy i kolejność okresów. Na telefonie historia rozpoczyna się od listy; możesz przełączyć ją na oś z własnym przewijaniem poziomym. Oba widoki otwierają te same szczegóły.
-5. Przełącz scenariusz na **Olę**. Jej zlecenie ma **181 dni poza etatami**, potencjalnie do sprawdzenia; pokrywających się dni nie doliczamy drugi raz. W szczegółach dodatkowej współpracy zobaczysz **62 dni pokryte etatem i 122 dni pokryte tylko potencjalnym zleceniem**. Wynik 0 względem całej historii nie oznacza, że ten okres lub jego dokumenty nie wymagają uwagi.
-6. Otwórz **„Listę dokumentów”**. Przy przykładowym dokumencie ustaw **„Nie mam dokumentu”**, a potem rozwiń **„Jak uzupełnić ten brak?”**. Zobaczysz konkretny następny krok i oficjalne źródło. Dostępność jest deklaracją, nie weryfikacją dokumentu ani prawa do zaliczenia okresu.
-7. W głównym porównaniu włącz lub wyłącz wcześniejszy okres i rozwiń wyjaśnienie dat. Rozwinięcie **„Cała historia”** dotyczy pełnego zestawu, a kategoria wymagająca weryfikacji podkreśla liczbę okresów do wyjaśnienia. **„Więcej” → „Pobierz podsumowanie całej historii TXT”** zapisuje pełne fikcyjne zestawienie; **„Jak czytać wynik”** otwiera zasady i źródła.
-8. Kliknij **„Przygotuj podsumowanie dla kadr”**. Przejdź trzy kroki: **„Wybierz okresy” → „Sprawdź dokumenty” → „Podsumowanie dla kadr”**. Wybory i deklaracje przejdą między ekranami. Jeśli chcesz ograniczyć listę nazw dokumentów, rozwiń **„Dostosuj zawartość”**; dostępność i zakres pozostają osobnymi wyborami.
-9. Na końcu od razu dostępne są **„Drukuj / zapisz jako PDF”** i **„Kopiuj wiadomość do kadr”**. Pełny tekst i TXT znajdziesz pod **„Więcej możliwości”**. Braki pozostają na karcie i w wiadomości. Nie ma checkboxa udającego zatwierdzenie wniosku; podsumowanie powstaje lokalnie i nic nie jest wysyłane. Zapis PDF zależy od opcji systemowego okna drukowania.
+1. Na pulpicie obywatela wybierz fikcyjną **Olę** (domyślny przykład), potem kliknij **„Sprawdź swoją historię pracy”**. Przejdziesz bezpośrednio do `/pulpit/ola`, bez ponownego wybierania scenariusza.
+2. W porównaniu Oli rozwiń **„Skąd bierze się ta różnica?”**. Z 1126 dni zlecenia 945 pokrywa się z etatem, a **181 dni pozostaje poza podstawą**, potencjalnie do sprawdzenia. Każdy dzień liczymy tylko raz.
+3. Otwórz **„Warunki i dokumenty”**. Przy przykładowym zaświadczeniu ustaw **„Nie mam dokumentu”** i rozwiń **„Jak uzupełnić ten brak?”**. Zobaczysz następny krok i oficjalne źródło. To deklaracja, nie weryfikacja dokumentu ani okresu.
+4. Zamknij szczegóły i kliknij **„Przygotuj podsumowanie dla kadr”**. Przejdź **„Wybierz okresy” → „Sprawdź dokumenty” → „Podsumowanie dla kadr”**. Jeśli chcesz ograniczyć listę nazw dokumentów, rozwiń **„Dostosuj zawartość”**. Dostępność i zakres pozostają osobnymi wyborami.
+5. Na końcu od razu dostępne są **„Drukuj / zapisz jako PDF”** i **„Kopiuj wiadomość do kadr”**. Pełny tekst i TXT są pod **„Więcej możliwości”**. Karta i wiadomość zawierają ten sam zakres i zadeklarowane braki; nic nie jest wysyłane. Zapis PDF korzysta z systemowego okna drukowania.
+6. Wróć przez **„Pulpit obywatela”**. Ola oraz wybory jej historii pozostają w tej karcie przeglądarki. Sekcja następnego kroku reaguje na wybrane okresy i dostępność dokumentów; nie oznacza zapisanego PDF ani zatwierdzonego stażu.
+7. Wybierz **Kasię** lub **Marka** i sprawdź, czy odsyłacze prowadzą do właściwej osoby. Na `/historia/[scenario]` wypróbuj filtry, kolejność i widok listy; na telefonie lista jest widokiem początkowym. Rozwiń **„Cała historia”** na pulpicie modułu, aby obejrzeć pełne kategorie niezależne od wyboru w porównaniu.
+
+Dodatkowa współpraca Oli ma **62 dni pokryte etatem i 122 dni pokryte tylko potencjalnym zleceniem**. Jej wkład 0 względem pełnej historii nie oznacza, że nie wymaga wyjaśnienia lub dokumentów.
+
+Pulpit obywatela zapamiętuje tylko identyfikator fikcyjnej osoby w `sessionStorage` pod kluczem `lata-pracy:profile:v1`. Nie jest to konto ani logowanie. Wejście do historii konkretnej osoby synchronizuje ten wybór z pulpitem.
 
 W nowej sesji potencjalne okresy i ich nazwy dokumentów są domyślnie wybrane, a ich dostępność ma stan **„Nie wiem jeszcze”**. Wybory są wspólne dla ekranów i zapisywane osobno dla scenariuszy w `sessionStorage`: zachowują się po nawigacji i odświeżeniu w tej samej karcie. Zapisywane są tylko identyfikatory fikcyjnych okresów i dokumentów oraz deklaracje dostępności — bez plików, danych osobowych i treści wiadomości. Bieżący krok kreatora nie jest utrwalany. Przy zablokowanym zapisie przeglądarki aplikacja działa w pamięci, ale odświeżenie może usunąć wybory.
 
@@ -57,7 +59,8 @@ W nowej sesji potencjalne okresy i ich nazwy dokumentów są domyślnie wybrane,
 
 | Adres             | Zawartość                                                                                               |
 | ----------------- | ------------------------------------------------------------------------------------------------------- |
-| `/`               | Strona startowa, CTA, wyjaśnienie działania                                                             |
+| `/`               | Pulpit obywatela, wybór fikcyjnej osoby, wejście do usługi i następny krok                              |
+| `/o-projekcie`    | Opis koncepcji, działania i granic prototypu                                                             |
 | `/scenariusze`    | Kasia — zlecenie + etat, Marek — JDG + etat, Ola — nakładające się okresy                               |
 | `/pulpit/kasia`   | Pulpit wybranego scenariusza; działa też dla `marek` i `ola`                                            |
 | `/historia/kasia` | Interaktywna oś czasu; działa też dla `marek` i `ola`                                                   |
@@ -76,7 +79,7 @@ npm run check      # wszystkie powyższe kolejno
 
 Testy obejmują m.in. lata przestępne, zmianę czasu, błędne daty, zagnieżdżone i wielokrotne nakładanie okresów, niezależny model zbiorów dla 100 historii, scenariusz Oli, filtry, sortowanie, szczegóły, eksport TXT, rozbicie dat na odcinki, porównanie warunkowe, wspólne wybory między ekranami, zapis sesji, ścieżkę brakującego dokumentu, odrębność dostępności i zakresu pakietu, bezpośredni eksport na końcu trzech kroków oraz awaryjne kopiowanie. jsdom nie sprawdza układu, kontrastu, natywnego zarządzania fokusem ani wyniku drukowania. Procedura sprawdzenia w przeglądarce znajduje się w [docs/TESTING.md](docs/TESTING.md).
 
-GitHub Actions wykonuje `npm ci` i `npm run check` dla Pull Requestów do `main`.
+GitHub Actions wykonuje `npm ci`, `npm run check` i `npm run build:static` dla Pull Requestów do `main`.
 
 ## Wersja produkcyjna lokalnie
 
@@ -91,7 +94,7 @@ Standardowy build działa na hostingu obsługującym Next.js 16 i Node.js 22+. D
 npm run build:static
 ```
 
-Polecenie przygotowuje katalog `out/` do hostingu statycznego; w tym wariancie każda znana trasa ma własny plik HTML. Nie uruchamiaj `npm start` do serwowania `out/`. Konfigurację publikacji prototypu w Sites zapisuje `.openai/hosting.json`. Publiczne demo opublikowano 12.11.2026; sprawdzono odpowiedzi HTTPS dla 12 stron oraz nieznanego adresu (404). Przejście całej ścieżki w oknie prywatnym i na rzeczywistym telefonie pozostaje do ręcznego sprawdzenia.
+Polecenie przygotowuje katalog `out/` do hostingu statycznego; w tym wariancie każda znana trasa ma własny plik HTML. Nie uruchamiaj `npm start` do serwowania `out/`. Konfigurację publikacji prototypu w Sites zapisuje `.openai/hosting.json`. Pierwsze publiczne demo opublikowano 12.11.2026 i sprawdzono odpowiedzi HTTPS dla 12 ówczesnych stron oraz nieznanego adresu (404). Obecny kod dodaje `/o-projekcie`, więc ma 13 adresów treści; wynik kontroli nowego wdrożenia zapisujemy w `docs/TESTING.md`. Przejście całej ścieżki w oknie prywatnym i na rzeczywistym telefonie pozostaje do ręcznego sprawdzenia.
 
 ## Technologie i struktura
 

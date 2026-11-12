@@ -46,6 +46,7 @@ import { HistoryExplorer } from "./history-explorer";
 import { DocumentPreparation } from "./document-preparation";
 import { ReviewCoverageBreakdown } from "./coverage-breakdown";
 import { useCaseSession } from "@/lib/case-session";
+import { setDemoScenario } from "@/lib/demo-profile";
 
 const workTypeLabels = {
   employment: "Umowa o pracę",
@@ -183,19 +184,24 @@ export function Workspace({
         </header>
         <main id="main" className="workspace-main">
           <div className="workspace-toolbar">
-            <Link href="/scenariusze" className="back-link">
-              <ArrowLeft size={15} aria-hidden="true" /> Wszystkie historie
+            <Link href="/" className="back-link citizen-return-link">
+              <ArrowLeft size={15} aria-hidden="true" /> Pulpit obywatela
             </Link>
             <div className="scenario-switch">
               <label htmlFor="scenario-select">Scenariusz:</label>
               <select
                 id="scenario-select"
                 value={scenario.id}
-                onChange={(event) =>
+                onChange={(event) => {
+                  const nextScenario = scenarios.find(
+                    (item) => item.id === event.target.value,
+                  );
+                  if (!nextScenario) return;
+                  setDemoScenario(nextScenario.id);
                   router.push(
-                    `/${screen === "dashboard" ? "pulpit" : "historia"}/${event.target.value}`,
-                  )
-                }
+                    `/${screen === "dashboard" ? "pulpit" : "historia"}/${nextScenario.id}`,
+                  );
+                }}
               >
                 {scenarios.map((item) => (
                   <option key={item.id} value={item.id}>

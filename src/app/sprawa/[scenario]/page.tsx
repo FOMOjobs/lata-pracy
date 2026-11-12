@@ -5,6 +5,7 @@ import { ArrowLeft, LockKeyhole } from "lucide-react";
 import { getScenario, scenarios } from "@/data/scenarios";
 import { CaseWizard } from "@/components/case-wizard";
 import { PublicFooter, PublicHeader } from "@/components/public-layout";
+import { DemoProfileSync } from "@/components/demo-profile-sync";
 
 export function generateStaticParams() {
   return scenarios.map(({ id }) => ({ scenario: id }));
@@ -30,12 +31,16 @@ export default async function CasePage({
   if (!scenario) notFound();
   return (
     <div className="case-route">
+      <DemoProfileSync scenarioId={scenario.id} />
       <PublicHeader />
       <main id="main" className="case-page container">
         <div className="case-page-toolbar">
           <Link href={`/pulpit/${scenario.id}`} className="back-link">
             <ArrowLeft size={16} aria-hidden="true" /> Wróć do historii:{" "}
             {scenario.name}
+          </Link>
+          <Link href="/" className="back-link citizen-return-link">
+            Pulpit obywatela
           </Link>
           <span>
             <LockKeyhole size={14} aria-hidden="true" /> Bez logowania · Bez

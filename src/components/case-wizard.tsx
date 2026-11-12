@@ -300,6 +300,13 @@ export function CaseWizard({ scenario }: { scenario: Scenario }) {
                   Wróć do historii <ArrowRight size={15} aria-hidden="true" />
                 </Link>
               </details>
+              <Link
+                className="text-link citizen-return-link case-citizen-return"
+                href="/"
+              >
+                Wróć do pulpitu obywatela
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
             </>
           )}
           {step === 0 && plan.periods.length === 0 && (

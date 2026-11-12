@@ -154,11 +154,13 @@ a svg {
 }
 .public-header nav {
   display: flex;
-  gap: 36px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 24px;
   font-size: 13px;
   font-weight: 550;
   margin-left: auto;
-  margin-right: 56px;
+  margin-right: 16px;
 }
 .public-header nav a {
   padding: 14px 0;
@@ -2488,7 +2490,7 @@ a svg {
   }
   .public-header nav {
     margin-right: 20px;
-    gap: 24px;
+    gap: 4px 18px;
   }
   .hero {
     gap: 40px;
@@ -2629,9 +2631,12 @@ a svg {
     height: 78px;
   }
   .public-header nav {
-    gap: 22px;
+    gap: 2px 14px;
     margin-right: 4px;
     font-size: 11px;
+  }
+  .header-inner > .demo-pill {
+    display: none;
   }
   .demo-pill {
     font-size: 9px;
@@ -3016,6 +3021,7 @@ a svg {
     display: none;
   }
   .header-inner > .demo-pill {
+    display: inline-flex;
     font-size: 12px;
     line-height: 1.5;
     white-space: normal;

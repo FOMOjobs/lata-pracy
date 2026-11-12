@@ -2,8 +2,12 @@ import "@testing-library/jest-dom/vitest";
 import { afterEach, beforeEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
 import { clearCaseSessions } from "@/lib/case-session";
+import { clearDemoProfile } from "@/lib/demo-profile";
 
-beforeEach(() => clearCaseSessions());
+beforeEach(() => {
+  clearCaseSessions();
+  clearDemoProfile();
+});
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();

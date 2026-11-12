@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getScenario, scenarios } from "@/data/scenarios";
 import { Workspace } from "@/components/workspace";
+import { DemoProfileSync } from "@/components/demo-profile-sync";
 
 export function generateStaticParams() {
   return scenarios.map(({ id }) => ({ scenario: id }));
@@ -23,5 +24,10 @@ export default async function DashboardPage({
 }) {
   const scenario = getScenario((await params).scenario);
   if (!scenario) notFound();
-  return <Workspace key={scenario.id} scenario={scenario} screen="dashboard" />;
+  return (
+    <>
+      <DemoProfileSync scenarioId={scenario.id} />
+      <Workspace key={scenario.id} scenario={scenario} screen="dashboard" />
+    </>
+  );
 }

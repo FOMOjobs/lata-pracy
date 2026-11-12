@@ -4,22 +4,25 @@ Hasło: **Twoja praca się liczy**. Język interfejsu: polski.
 
 ## Cel
 
-Pomóc osobie, która ma za sobą różne formy pracy, uporządkować okresy aktywności i przygotować się do rozmowy z pracodawcą o ich zaliczeniu do stażu. Prototyp pokazuje możliwości na trzech fikcyjnych historiach, bez zbierania danych użytkownika.
+Pomóc osobie, która ma za sobą różne formy pracy, uporządkować okresy aktywności i przygotować się do rozmowy z pracodawcą o ich zaliczeniu do stażu. Prototyp pokazuje możliwości na trzech fikcyjnych historiach, bez zbierania danych użytkownika. Autorski pulpit obywatela osadza tę jedną usługę w doświadczeniu aplikacji: od wyboru historii po lokalne podsumowanie i powrót do następnego kroku.
 
 ## Główna ścieżka
 
-Start → wybór historii → porównanie na pulpicie → szczegóły okresu i dokumentów → podsumowanie dla kadr. Oś czasu pozostaje dostępna do sprawdzenia dat i równoległych okresów.
+Pulpit obywatela `/` → wybór fikcyjnej osoby na tym samym ekranie → bezpośrednio `/pulpit/[scenario]` → szczegóły okresu i dokumentów → podsumowanie dla kadr → powrót do pulpitu obywatela. Oś czasu pozostaje dostępna do sprawdzenia dat i równoległych okresów.
 
 Ścieżka konkursowa: `/demo` → odkrycie dodatkowych dni → `/sprawa/[scenario]` → **„Wybierz okresy” → „Sprawdź dokumenty” → „Podsumowanie dla kadr”**. Ostatni krok łączy podgląd z działaniami **„Drukuj / zapisz jako PDF”** i **„Kopiuj wiadomość do kadr”**. Pełny tekst oraz TXT są pod **„Więcej możliwości”**. Nie ma dodatkowego checkboxa ani bramki zatwierdzającej lokalny eksport. Karta i wiadomość zawierają ten sam zakres oraz zadeklarowane braki. Spokojny komunikat wyjaśnia, że nic nie jest wysyłane, a zaliczenie okresów nadal wymaga sprawdzenia.
 
-Pulpit ma jedno prowadzące porównanie i jeden główny przycisk przygotowania podsumowania dla kadr. Zaznaczenie potencjalnego okresu aktualizuje wyłącznie porównanie warunkowe; nie zmienia prawnych założeń danych ani TODO. Rozwinięcie pokazuje dokładne odcinki dat już pokrytych innymi okresami oraz nowe dni. Trzy kategorie są schowane pod **„Cała historia”**: opisują pełny fikcyjny zestaw niezależnie od wyboru w porównaniu. Kategoria wymagająca weryfikacji podkreśla liczbę okresów do wyjaśnienia, również gdy ich dodatkowy wkład wynosi zero. Usunięto powtarzające się karty promocyjne i dodatkowe wezwania do tego samego działania.
+Pulpit modułu historii pracy ma jedno prowadzące porównanie i jeden główny przycisk przygotowania podsumowania dla kadr. Zaznaczenie potencjalnego okresu aktualizuje wyłącznie porównanie warunkowe; nie zmienia prawnych założeń danych ani TODO. Rozwinięcie pokazuje dokładne odcinki dat już pokrytych innymi okresami oraz nowe dni. Trzy kategorie są schowane pod **„Cała historia”**: opisują pełny fikcyjny zestaw niezależnie od wyboru w porównaniu. Kategoria wymagająca weryfikacji podkreśla liczbę okresów do wyjaśnienia, również gdy ich dodatkowy wkład wynosi zero. Usunięto powtarzające się karty promocyjne i dodatkowe wezwania do tego samego działania.
 
 | Ekran       | Cel                                                              | Działanie                                                                |
 | ----------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Start       | Wyjaśnić wartość i granice produktu                              | CTA „Sprawdź swoją historię pracy”, kroki, zasady i źródła               |
+| Pulpit obywatela `/` | Wybrać przykład i wejść do jednej usługi | Fikcyjna osoba, bezpośredni CTA do jej historii, następny krok oparty na wyborach |
+| O projekcie | Wyjaśnić wartość i granice produktu | Dotychczasowa strona opisowa pod `/o-projekcie` |
 | Scenariusze | Pozwolić bezpiecznie poznać prototyp                             | Kasia, Marek, Ola; każda karta prowadzi do właściwego pulpitu            |
 | Pulpit      | Pokazać jeden następny krok i oddzielić wybór od pełnej historii | Prowadzące porównanie, „Cała historia” na żądanie, szczegóły i dokumenty  |
 | Oś czasu    | Pokazać kolejność, równoległość i wymagania                      | Kliki w paski i nazwy, filtry, sortowanie, alternatywna lista, szczegóły |
+
+Pulpit obywatela ma rzeczywiste odsyłacze do historii, podsumowania, demonstracji i opisu projektu. Nie udaje portfela dokumentów ani katalogu niezaimplementowanych usług. Następny krok wynika z bieżącego `useCaseSession`, a nie z integracji z rejestrem. Wybór fikcyjnej osoby jest wspólny z ekranami usługi i zachowuje się w sesji karty; nie oznacza uwierzytelnienia.
 
 ## Scenariusze
 
@@ -37,17 +40,18 @@ Dostępność dokumentu jest osobną deklaracją: **„Nie wiem jeszcze”**, **
 
 **„Nie mam dokumentu”** ujawnia konkretny brak i następne działanie. Natywne rozwinięcie **„Jak uzupełnić ten brak?”** pokazuje znane informacje o okresie, 2–3 kroki i właściwe istniejące źródło urzędowe. To instrukcja dalszego sprawdzenia, nie wniosek, integracja ani automatyczna zmiana statusu okresu.
 
-Wybór okresów, zakres nazw dokumentów i ich dostępność są wspólne dla ekranów danego scenariusza. W nowej sesji wybrane są potencjalne okresy i ich dokumenty, a dostępność pozostaje nieustalona. `sessionStorage` zachowuje te wybory po nawigacji i odświeżeniu w tej samej karcie. Nie zapisujemy plików, danych osobowych ani tekstu wiadomości. Bieżący krok kreatora nie jest zapisywany. Przy niedostępnym zapisie przeglądarki zachowujemy stan w pamięci do odświeżenia.
+Identyfikator wybranej fikcyjnej osoby jest zapisywany osobno pod `lata-pracy:profile:v1`, walidowany do trzech znanych identyfikatorów i domyślnie wskazuje Olę. Wybór okresów, zakres nazw dokumentów i ich dostępność są wspólne dla ekranów danego scenariusza. W nowej sesji wybrane są potencjalne okresy i ich dokumenty, a dostępność pozostaje nieustalona. `sessionStorage` zachowuje te wybory po nawigacji i odświeżeniu w tej samej karcie. Nie zapisujemy plików, danych osobowych ani tekstu wiadomości. Bieżący krok kreatora nie jest zapisywany. Przy niedostępnym zapisie przeglądarki zachowujemy stan w pamięci do odświeżenia.
 
 ## Kierunek wizualny
 
-Autorska identyfikacja: symbol rosnących etapów, granat, jasny błękit, biel, lokalne fonty Manrope i DM Sans, liniowe ikony Lucide. Bez godła, symboliki urzędowej i kopiowania mObywatela. Własna ilustracja historii pracy jest zbudowana w HTML/CSS; nie używa wizerunku osoby.
+Autorska identyfikacja: symbol rosnących etapów, granat, jasny błękit, biel, lokalne fonty Manrope i DM Sans, liniowe ikony Lucide. Bez godła, symboliki urzędowej i kopiowania mObywatela. Własne ilustracje historii pracy i pulpitu są zbudowane w kodzie; nie używają wizerunku osoby ani assetów prototypu organizatora. Pulpit obywatela ma własny arkusz `citizen.css` z prefiksem klas, aby ograniczyć wpływ na istniejące widoki modułu.
 
 Interfejs dopasowuje się do telefonu, tabletu i komputera. Na telefonie boczna nawigacja zmienia się w górne zakładki, a historia początkowo pokazuje listę. Użytkownik może wybrać oś z przewijaniem we własnym obszarze; oba widoki otwierają te same szczegóły. Ręcznie wybrany widok nie jest nadpisywany samą zmianą szerokości. Powiększone kontrolki i poprawione teksty wymagają jeszcze kontroli na rzeczywistych urządzeniach.
 
 ## Kryteria akceptacji
 
-- Wszystkie cztery ekrany oraz trzy scenariusze działają bez logowania i konfiguracji usług.
+- Pulpit obywatela, 13 adresów treści i trzy scenariusze działają bez logowania i konfiguracji usług.
+- Zmiana fikcyjnej osoby aktualizuje odsyłacze; powrót z usługi zachowuje właściwą osobę i jej wybory w sesji karty.
 - Status i ograniczenia wyniku są widoczne przed interpretowaniem liczb.
 - Każdy okres ujawnia daty, opis, warunki i dokumenty; niepewne przypadki mają TODO.
 - Kategorie podsumowania nie przypisują tego samego dnia więcej niż raz.

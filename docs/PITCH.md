@@ -2,23 +2,23 @@
 
 Zdanie przewodnie: **„Ta praca już się wydarzyła. Pomóżmy człowiekowi sprawdzić, czy liczy się także w jego stażu.”**
 
-Przed pokazem otwórz `/demo` i sprawdź zapisane wybory scenariusza Oli: aplikacja zachowuje je w sesji tej samej karty. Domyślnie wybrane są potencjalne okresy i ich dokumenty, a dostępność jest nieustalona. Wszystkie osoby i firmy w demonstracji są fikcyjne. Nie korzystaj z prawdziwych dokumentów.
+Przed pokazem otwórz `/` i wybierz fikcyjną Olę. Sprawdź zapisane wybory jej historii: aplikacja zachowuje je w sesji tej samej karty. Domyślnie wybrane są potencjalne okresy i ich dokumenty, a dostępność jest nieustalona. Wszystkie osoby i firmy są fikcyjne. Osobna strona `/demo` pozostaje alternatywą do krótkiego objaśnienia samego wyniku.
 
-## 0–15 s — problem
+## 0–12 s — jedna usługa w aplikacji obywatelskiej
 
-Ekran: pierwszy rozdział demonstracji.
+Ekran: pulpit obywatela `/`, fikcyjna Ola.
 
-„Ola łączyła etat ze zleceniem. Część zlecenia trwała po zakończeniu etatu. Dziś musi wiedzieć, gdzie szukać dokumentów i które okresy warto sprawdzić. Lata Pracy porządkują tę jedną sprawę.”
+„Aplikacja obywatelska powinna prowadzić do konkretnego rezultatu. Tutaj zaczynam od jednej sprawy: Ola łączyła etat ze zleceniem i chce sprawdzić wcześniejsze okresy. Wchodzę do Lat Pracy.”
 
-Kliknij **„Pokaż pominięty okres”**.
+Kliknij **„Sprawdź swoją historię pracy”**. Przejdź bezpośrednio do `/pulpit/ola`; nie wybieraj ponownie osoby.
 
-## 15–30 s — moment odkrycia
+## 12–30 s — moment odkrycia
 
-Ekran: rozbicie zlecenia na odcinki.
+Ekran: porównanie Oli. Rozwiń **„Skąd bierze się ta różnica?”**.
 
 „Zlecenie trwało 1126 dni. Nie dodajemy całej liczby: 945 dni pokrywa się już z etatem. Zostaje 181 dni poza podstawą. Można zobaczyć dokładne daty i zrozumieć wynik. Zaliczenie wymaga sprawdzenia warunków i dokumentów.”
 
-Wskaż dwa odcinki paska, potem kliknij **„Zobacz następny krok”** i **„Przygotuj podsumowanie dla kadr”**.
+Wskaż odcinki z datami, potem kliknij **„Przygotuj podsumowanie dla kadr”**.
 
 ## 30–65 s — konkretny brak i następny krok
 
@@ -38,10 +38,13 @@ Wskaż **„Drukuj / zapisz jako PDF”**, **„Kopiuj wiadomość do kadr”** 
 
 ## 85–90 s — teza końcowa
 
-„Lata Pracy zamieniają rozproszoną historię w zrozumiałe podsumowanie i następny krok. Każdy dzień raz. Decyzje pod kontrolą człowieka.”
+Wróć do **„Pulpitu obywatela”**.
+
+„Wróciłam do tej samej historii, z zachowanymi wyborami. Jedna usługa w aplikacji obywatelskiej: od niepewności do podsumowania i następnego kroku. Każdy dzień raz. Decyzje pod kontrolą człowieka.”
 
 ## Gdy padną pytania
 
+- **Czy to przebudowa oficjalnego mObywatela?** Nie. To autorski prototyp jednej usługi osadzonej w pulpicie obywatela. Nie korzysta z kodu ani oznaczeń udostępnionego prototypu organizatora.
 - **Czy to potwierdzenie stażu?** Nie. To fikcyjny przykład i zestawienie dni. Ocenę konkretnego okresu poprzedza sprawdzenie warunków i dowodów przez pracodawcę.
 - **Czy łączycie się z ZUS?** Nie w tym prototypie. Taka integracja byłaby oddzielnym etapem z odpowiednim upoważnieniem.
 - **Czy „Mam dokument” oznacza, że został potwierdzony?** Nie. To wyłącznie deklaracja w fikcyjnym scenariuszu. Włączenie nazwy do projektu jest osobnym wyborem, a prawnej weryfikacji prototyp nie wykonuje.
