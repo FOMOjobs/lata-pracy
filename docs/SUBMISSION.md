@@ -33,7 +33,7 @@ Chcemy pokazać cyfrową usługę, która pomaga przejść jedną sprawę od poc
 
 https://lata-pracy-demo.verbaltoucan.chatgpt.site
 
-Pierwszą wersję publicznego demo opublikowano 12.11.2026; obecna iteracja dodaje pulpit obywatela i osobne `/o-projekcie`. Zalecana strona wejścia: `/` z widocznym odsyłaczem do `/demo`. Odpowiedzi HTTPS stron sprawdzono bez nagłówków logowania. Przed zgłoszeniem przejdź jeszcze całą ścieżkę w oknie prywatnym: bez konta właściciela, hasła, zaproszenia ani logowania do hostingu.
+Wersję 2 publicznego demo z pulpitem obywatela i osobnym `/o-projekcie` opublikowano 12.11.2026. Zalecana strona wejścia: `/` z widocznym odsyłaczem do `/demo`. Odpowiedzi HTTPS wszystkich 13 stron sprawdzono bez nagłówków logowania. Przed zgłoszeniem przejdź jeszcze całą ścieżkę w oknie prywatnym: bez konta właściciela, hasła, zaproszenia ani logowania do hostingu.
 
 ## Dodatkowy link
 

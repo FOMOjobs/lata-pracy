@@ -94,7 +94,7 @@ Standardowy build działa na hostingu obsługującym Next.js 16 i Node.js 22+. D
 npm run build:static
 ```
 
-Polecenie przygotowuje katalog `out/` do hostingu statycznego; w tym wariancie każda znana trasa ma własny plik HTML. Nie uruchamiaj `npm start` do serwowania `out/`. Konfigurację publikacji prototypu w Sites zapisuje `.openai/hosting.json`. Pierwsze publiczne demo opublikowano 12.11.2026 i sprawdzono odpowiedzi HTTPS dla 12 ówczesnych stron oraz nieznanego adresu (404). Obecny kod dodaje `/o-projekcie`, więc ma 13 adresów treści; wynik kontroli nowego wdrożenia zapisujemy w `docs/TESTING.md`. Przejście całej ścieżki w oknie prywatnym i na rzeczywistym telefonie pozostaje do ręcznego sprawdzenia.
+Polecenie przygotowuje katalog `out/` do hostingu statycznego; w tym wariancie każda znana trasa ma własny plik HTML. Nie uruchamiaj `npm start` do serwowania `out/`. Konfigurację publikacji prototypu w Sites zapisuje `.openai/hosting.json`. Pulpit obywatela opublikowano 12.11.2026 jako wersję 2 demo. Kontrola HTTPS potwierdziła nowy ekran główny, wszystkie 13 stron treści, próbki zasobów i nieznaną historię (404); szczegóły są w `docs/TESTING.md`. Przejście całej ścieżki w oknie prywatnym i na rzeczywistym telefonie pozostaje do ręcznego sprawdzenia.
 
 ## Technologie i struktura
 
