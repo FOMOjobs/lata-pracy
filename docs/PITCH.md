@@ -2,48 +2,52 @@
 
 Zdanie przewodnie: **„Ta praca już się wydarzyła. Pomóżmy człowiekowi sprawdzić, czy liczy się także w jego stażu.”**
 
-Przed pokazem otwórz `/demo` i sprawdź zapisane wybory scenariusza Oli: aplikacja zachowuje je w sesji tej samej karty. Domyślnie wybrane są potencjalne okresy i ich dokumenty, a dostępność jest nieustalona. Wszystkie osoby i firmy w demonstracji są fikcyjne. Nie korzystaj z prawdziwych dokumentów.
+Przed pokazem otwórz `/` i wybierz fikcyjną Olę. Sprawdź zapisane wybory jej historii: aplikacja zachowuje je w sesji tej samej karty. Domyślnie wybrane są potencjalne okresy i ich dokumenty, a dostępność jest nieustalona. Wszystkie osoby i firmy są fikcyjne. Osobna strona `/demo` pozostaje alternatywą do krótkiego objaśnienia samego wyniku.
 
-## 0–15 s — problem
+## 0–12 s — jedna usługa w aplikacji obywatelskiej
 
-Ekran: pierwszy rozdział demonstracji.
+Ekran: pulpit obywatela `/`, fikcyjna Ola.
 
-„Ola łączyła etat ze zleceniem. Część zlecenia trwała po zakończeniu etatu. Dziś musi wiedzieć, gdzie szukać dokumentów i które okresy warto sprawdzić. Lata Pracy porządkują tę jedną sprawę.”
+„Aplikacja obywatelska powinna prowadzić do konkretnego rezultatu. Tutaj zaczynam od jednej sprawy: Ola łączyła etat ze zleceniem i chce sprawdzić wcześniejsze okresy. Wchodzę do Lat Pracy.”
 
-Kliknij **„Pokaż pominięty okres”**.
+Kliknij **„Sprawdź swoją historię pracy”**. Przejdź bezpośrednio do `/pulpit/ola`; nie wybieraj ponownie osoby.
 
-## 15–30 s — moment odkrycia
+## 12–30 s — moment odkrycia
 
-Ekran: rozbicie zlecenia na odcinki.
+Ekran: porównanie Oli. Rozwiń **„Skąd bierze się ta różnica?”**.
 
 „Zlecenie trwało 1126 dni. Nie dodajemy całej liczby: 945 dni pokrywa się już z etatem. Zostaje 181 dni poza podstawą. Można zobaczyć dokładne daty i zrozumieć wynik. Zaliczenie wymaga sprawdzenia warunków i dokumentów.”
 
-Wskaż dwa odcinki paska, potem kliknij **„Zobacz następny krok”** i **„Przygotuj sprawę Oli”**.
+Wskaż odcinki z datami, potem kliknij **„Przygotuj podsumowanie dla kadr”**.
 
 ## 30–65 s — konkretny brak i następny krok
 
-Ekran: przygotowanie sprawy.
+Ekran: trzy kroki podsumowania dla kadr.
 
-„Sama liczba nie załatwia sprawy. Wybrane okresy przechodzą do tej samej sprawy. Jeżeli nie mam dokumentu, dostaję konkretny następny krok i źródło do sprawdzenia. Osobno decyduję, czy uwzględnić jego nazwę w projekcie. Żaden wybór nie zatwierdza okresu.”
+„Sama liczba nie wystarczy. Wybrane okresy przechodzą do podsumowania dla kadr. Jeśli nie mam dokumentu, dostaję konkretny następny krok i źródło. Brak będzie widoczny na karcie, zamiast znikać po kolejnym kliknięciu.”
 
-Kliknij **„Wybierz zakres pakietu”**. Przy zaświadczeniu ustaw **„Nie mam dokumentu”** i rozwiń **„Jak uzupełnić ten brak?”**. Wskaż następny krok i źródło, potem kliknij **„Pokaż podgląd”**. Podczas krótkiego pokazu nie otwieraj zewnętrznej strony. Opcjonalnie pokaż odznaczenie nazwy dokumentu i zachowanie wyboru po cofnięciu.
+Przejdź do **„Sprawdź dokumenty”**. Przy zaświadczeniu ustaw **„Nie mam dokumentu”** i rozwiń **„Jak uzupełnić ten brak?”**. Wskaż następny krok i źródło, potem kliknij **„Pokaż podsumowanie”**. Podczas krótkiego pokazu nie otwieraj zewnętrznej strony. Szczegółowy zakres pod „Dostosuj zawartość” pokazuj tylko w odpowiedzi na pytanie.
 
 ## 65–85 s — namacalny rezultat
 
-Ekran: karta do przejrzenia, następnie przygotowany projekt.
+Ekran: końcowe podsumowanie dla kadr.
 
-„Przed potwierdzeniem widzę samą kartę z wybranym zakresem i zaznaczonym brakiem. Po przygotowaniu mogę ją wydrukować. Wiadomość i inne eksporty są pod dodatkowym rozwinięciem. Projekt jest przygotowany, ale dokumentu nadal brakuje — aplikacja tego nie ukrywa. Nic nie zostało wysłane.”
+„Mam uporządkowane podsumowanie: daty, wyjaśnienie wyniku i listę dokumentów do uzupełnienia. Mogę je wydrukować lub skopiować wiadomość do kadr. Dokumentu nadal brakuje — aplikacja tego nie ukrywa. Podsumowanie powstaje na moim urządzeniu; nic nie zostało wysłane.”
 
-Zaznacz zrozumienie symulacji i kliknij **„Przygotuj projekt”**. Wskaż główne działanie **„Drukuj kartę”** i komunikat o brakujących lub nieustalonych dokumentach. Nie otwieraj okna drukowania podczas krótkiej prezentacji. W razie pytania o wiadomość rozwiń **„Więcej możliwości”**.
+Wskaż **„Drukuj / zapisz jako PDF”**, **„Kopiuj wiadomość do kadr”** i komunikat o brakujących lub nieustalonych dokumentach. Nie otwieraj okna drukowania podczas krótkiej prezentacji. W razie pytania o pełną wiadomość rozwiń **„Więcej możliwości”**. Zapis PDF korzysta z opcji drukowania przeglądarki, nie osobnego generatora.
 
 ## 85–90 s — teza końcowa
 
-„Lata Pracy zamieniają rozproszoną historię w zrozumiałą, przygotowaną sprawę. Każdy dzień raz. Każdy kolejny krok pod kontrolą człowieka.”
+Wróć do **„Pulpitu obywatela”**.
+
+„Wróciłam do tej samej historii, z zachowanymi wyborami. Jedna usługa w aplikacji obywatelskiej: od niepewności do podsumowania i następnego kroku. Każdy dzień raz. Decyzje pod kontrolą człowieka.”
 
 ## Gdy padną pytania
 
+- **Czy to przebudowa oficjalnego mObywatela?** Nie. To autorski prototyp jednej usługi osadzonej w pulpicie obywatela. Nie korzysta z kodu ani oznaczeń udostępnionego prototypu organizatora.
 - **Czy to potwierdzenie stażu?** Nie. To fikcyjny przykład i zestawienie dni. Ocenę konkretnego okresu poprzedza sprawdzenie warunków i dowodów przez pracodawcę.
 - **Czy łączycie się z ZUS?** Nie w tym prototypie. Taka integracja byłaby oddzielnym etapem z odpowiednim upoważnieniem.
 - **Czy „Mam dokument” oznacza, że został potwierdzony?** Nie. To wyłącznie deklaracja w fikcyjnym scenariuszu. Włączenie nazwy do projektu jest osobnym wyborem, a prawnej weryfikacji prototyp nie wykonuje.
 - **Czy używacie AI?** Obecny prototyp nie korzysta z modelu językowego. Możliwa przyszła rola polskiego modelu to upraszczanie wyjaśnień opartych na zweryfikowanych źródłach. Wyliczanie dat i decyzja prawna nie powinny zależeć od generowanej odpowiedzi.
+- **Dlaczego dodatkowa współpraca Oli ma 0 nowych dni?** W pełnej pokazanej historii 62 dni pokrywa etat, a 122 dni tylko potencjalne zlecenie. Jeśli zlecenie nie zostanie zaliczone, znaczenie współpracy trzeba sprawdzić osobno. Zero nie jest radą, żeby nie szukać dokumentów.
 - **Co dalej?** Testy użyteczności, przegląd prawny TODO, audyt dostępności, a następnie projekt bezpiecznego połączenia z odpowiednimi usługami. Szerszy portfel kariery pozostaje kierunkiem rozwoju, nie obecną funkcją.

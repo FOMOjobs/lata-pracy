@@ -50,7 +50,7 @@ export function createCaseDraft(
       selectedDocumentIds.includes(document.id),
   );
   return [
-    "FIKCYJNY PROJEKT — LATA PRACY, DEMONSTRACJA. NIE WYSŁANO WIADOMOŚCI.",
+    "PODSUMOWANIE DLA KADR — LATA PRACY, DEMONSTRACJA. NIE WYSŁANO WIADOMOŚCI.",
     "Temat: Prośba o weryfikację wcześniejszych okresów aktywności zawodowej",
     "",
     "Dzień dobry,",
@@ -71,7 +71,7 @@ export function createCaseDraft(
           (document) =>
             `• ${document.title} (${describeDocumentAvailability(documentAvailability[document.id])})`,
         )
-      : ["• Nie wybrano dokumentów — projekt wymaga uzupełnienia."]),
+      : ["• Nie wybrano dokumentów — podsumowanie wymaga uzupełnienia."]),
     "Dostępność dokumentów to deklaracje w fikcyjnym przykładzie. Nie zweryfikowano plików ani kompletności dowodów.",
     "",
     `W tym przykładzie unikalne dni poza podstawą wynoszą ${plan.additionalDays}. To zestawienie kalendarzowe, nie prawne potwierdzenie stażu ani uprawnień. Nakładające się dni nie zostały policzone ponownie.`,

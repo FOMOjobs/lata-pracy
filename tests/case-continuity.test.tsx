@@ -24,13 +24,14 @@ describe("ciągłość sprawy między ekranami", () => {
     dashboard.unmount();
     const wizard = render(<CaseWizard scenario={scenarios[2]} />);
     await user.click(
-      screen.getByRole("button", { name: "Wybierz zakres pakietu" }),
+      screen.getByRole("button", { name: "Sprawdź dokumenty" }),
     );
     expect(
       screen.getByRole("combobox", {
         name: "Dostępność: Zaświadczenie o ubezpieczeniu z tytułu zlecenia",
       }),
     ).toHaveValue("missing");
+    await user.click(screen.getByText("Dostosuj zawartość"));
     await user.click(
       screen.getByRole("checkbox", {
         name: "Uwzględnij w projekcie: Umowa i potwierdzenie wykonywania zlecenia",
@@ -46,6 +47,7 @@ describe("ciągłość sprawy między ekranami", () => {
       screen.getByRole("checkbox", { name: /Zlecenie równolegle/ }),
     ).not.toBeChecked();
     expect(screen.getByText("0 dni poza podstawą")).toBeVisible();
+    await user.click(screen.getByText("Cała historia"));
     expect(
       screen.getByRole("heading", { name: "Potencjalnie do doliczenia" })
         .parentElement,

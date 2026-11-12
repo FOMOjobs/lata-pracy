@@ -94,6 +94,8 @@ describe("przygotowanie dokumentów i brakujący dowód", () => {
   it("oddziela brak dokumentu od wyboru jego nazwy do projektu", async () => {
     const user = userEvent.setup();
     render(<ControlledPreparation withScope />);
+    expect(screen.getByRole("checkbox")).not.toBeVisible();
+    await user.click(screen.getByText("Dostosuj zawartość"));
     const checkbox = screen.getByRole("checkbox", {
       name: `Uwzględnij w projekcie: ${document.title}`,
     });

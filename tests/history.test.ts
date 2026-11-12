@@ -4,6 +4,7 @@ import {
   formatDate,
   parseDay,
   periodDays,
+  splitPeriodByStatusCoverage,
   summarizeHistory,
 } from "@/lib/history";
 import type { PeriodStatus, WorkPeriod } from "@/lib/types";
@@ -25,6 +26,45 @@ const period = (
   description: "Demo",
   conditions: [],
   documents: [],
+});
+
+describe("źródła pokrycia niepewnego okresu", () => {
+  it("odróżnia 62 dni etatu Oli od 122 dni pokrytych tylko potencjalnym zleceniem", () => {
+    const ola = scenarios.find((scenario) => scenario.id === "ola")!;
+    const review = ola.periods.find((item) => item.id === "ola-review")!;
+    expect(splitPeriodByStatusCoverage(review, ola.periods)).toEqual([
+      { start: "2022-03-01", end: "2022-06-30", days: 122, kind: "potential" },
+      { start: "2022-07-01", end: "2022-08-31", days: 62, kind: "included" },
+    ]);
+    const withoutContract = ola.periods.filter((item) => item.id !== "ola-contract");
+    expect(splitPeriodByStatusCoverage(review, withoutContract)).toEqual([
+      { start: "2022-03-01", end: "2022-06-30", days: 122, kind: "uncovered" },
+      { start: "2022-07-01", end: "2022-08-31", days: 62, kind: "included" },
+    ]);
+    expect(summarizeHistory(withoutContract).days).toEqual({
+      included: 3045, potential: 0, review: 122,
+    });
+  });
+  it("przy wielokrotnym pokryciu przypisuje dzień podstawie i nie traktuje review jako potwierdzenia", () => {
+    const input = [
+      period("potential", "2026-01-02", "2026-01-06", "potential"),
+      period("included", "2026-01-04", "2026-01-05"),
+      period("review", "2026-01-01", "2026-01-07", "review"),
+    ];
+    const original = structuredClone(input);
+    const segments = splitPeriodByStatusCoverage(
+      { start: "2026-01-01", end: "2026-01-07" }, input,
+    );
+    expect(segments.map(({ days, kind }) => ({ days, kind }))).toEqual([
+      { days: 1, kind: "uncovered" },
+      { days: 2, kind: "potential" },
+      { days: 2, kind: "included" },
+      { days: 1, kind: "potential" },
+      { days: 1, kind: "uncovered" },
+    ]);
+    expect(segments.reduce((sum, item) => sum + item.days, 0)).toBe(7);
+    expect(input).toEqual(original);
+  });
 });
 
 describe("daty kalendarzowe, oba końce okresu włącznie", () => {

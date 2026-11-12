@@ -1,11 +1,15 @@
 # Dalsza rozbudowa
 
-## Następna iteracja prototypu
+## Po iteracji audytowej i dodaniu pulpitu obywatela
+
+Wdrożona iteracja upraszcza pulpit i finał podsumowania, rozróżnia pokrycie pewne w przykładzie od potencjalnego oraz zaczyna mobilną historię od listy. Autorski pulpit obywatela osadza tę usługę w nawigacji: wybrana fikcyjna osoba, jej historia, dokumenty, podsumowanie i powrót. Dotychczasowy opis jest pod `/o-projekcie`. Nie dodaje kalkulatora uprawnień, AI, rejestrów ani pustych usług. Kolejny krok to weryfikacja tych zmian, a nie powiększanie katalogu funkcji.
+
+## Następne działania
 
 1. Wykonać przegląd w rzeczywistej przeglądarce, na urządzeniu mobilnym i z czytnikiem ekranu. Zmierzyć kontrast i komfort rozmiarów tekstu; zrealizować procedurę z `TESTING.md`.
-2. Przeprowadzić krótkie testy z użytkownikami: czy odróżniają scenariusz od prawdziwej analizy i status potencjalny od potwierdzenia.
+2. Dać 3–5 osobom zadanie: „z pulpitu obywatela otwórz historię Oli, sprawdź zlecenie, zaznacz brak dokumentu, przygotuj podsumowanie dla kadr i wróć na pulpit”. Sprawdzić, czy rozumieją 181 dni, zależność 122 dni współpracy od potencjalnego zlecenia oraz brak wysyłki. Zmierzyć czas i błędy bez prowadzenia uczestnika.
 3. Uzupełnić prawne TODO z `LEGAL.md` przy udziale specjalisty prawa pracy. Dla każdej implementowanej reguły przygotować źródło, datę obowiązywania i przypadki testowe.
-4. Dodać testy E2E w Chrome/Firefox/WebKit, testy automatycznej dostępności i zrzuty regresyjne dla czterech ekranów.
+4. Dodać testy E2E w Chrome/Firefox/WebKit, testy automatycznej dostępności i zrzuty regresyjne dla pulpitu obywatela i głównych ekranów usługi.
 5. Podzielić komponent przestrzeni pracy na osobne moduły i wyodrębnić generowanie eksportu przed dalszym zwiększaniem zakresu.
 
 ## Przed prawdziwymi historiami

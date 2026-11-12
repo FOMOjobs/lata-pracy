@@ -26,7 +26,7 @@ export const statusMeta = {
   },
   potential: {
     label: "Potencjalnie do doliczenia",
-    short: "Do doliczenia",
+    short: "Potencjalne",
     description:
       "Dodatkowe dni, jeśli warunki i dokumenty zostaną potwierdzone.",
   },

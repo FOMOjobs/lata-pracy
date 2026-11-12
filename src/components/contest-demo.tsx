@@ -30,7 +30,7 @@ export function ContestDemo({ scenario }: { scenario: Scenario }) {
     (period) => period.status === "included",
   );
   useEffect(() => {
-    headingRef.current?.focus({ preventScroll: true });
+    headingRef.current?.focus();
   }, [step]);
   if (!candidate) return null;
   const plan = createCasePlan(scenario, [candidate.id]);
@@ -97,7 +97,7 @@ export function ContestDemo({ scenario }: { scenario: Scenario }) {
                 <>
                   Wiesz już więcej.
                   <br />
-                  <em>Teraz przygotuj sprawę.</em>
+                  <em>Przygotuj podsumowanie.</em>
                 </>,
               ][step]
             }
@@ -107,7 +107,7 @@ export function ContestDemo({ scenario }: { scenario: Scenario }) {
               [
                 "Ola pracowała na etacie i na zleceniu. Część zlecenia trwała już po zakończeniu etatu. Samo spojrzenie na etaty nie pokazuje całej historii.",
                 `Zlecenie trwało ${formatNumber(days)} dni, ale większość pokrywa się z etatem. Po usunięciu powtórzeń pozostaje ${formatNumber(plan.additionalDays)} dni poza podstawą — do sprawdzenia, po potwierdzeniu warunków i dokumentów.`,
-                "Wybierz okres i nazwy dokumentów, przejrzyj projekt pakietu, a potem potwierdź symulację. Na końcu możesz skopiować wiadomość lub wydrukować kartę.",
+                "Wybierz okres i sprawdź dostępność dokumentów. Otrzymasz podsumowanie dla kadr z jawną listą braków, gotowe do wydruku lub skopiowania.",
               ][step]
             }
           </p>
@@ -239,7 +239,7 @@ export function ContestDemo({ scenario }: { scenario: Scenario }) {
             className="button button-primary"
             href={`/sprawa/${scenario.id}`}
           >
-            Przygotuj sprawę Oli <ArrowRight size={18} aria-hidden="true" />
+            Przygotuj podsumowanie dla kadr <ArrowRight size={18} aria-hidden="true" />
           </Link>
         )}
       </div>

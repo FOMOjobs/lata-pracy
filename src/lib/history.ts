@@ -72,6 +72,32 @@ export function splitPeriodByCoverage(
   return segments;
 }
 
+export interface StatusCoverageSegment {
+  start: string;
+  end: string;
+  days: number;
+  kind: "included" | "potential" | "uncovered";
+}
+
+/** Explains the source of date coverage without treating a potential period as
+ * confirmed. Other periods awaiting review do not establish either coverage. */
+export function splitPeriodByStatusCoverage(
+  period: Pick<WorkPeriod, "start" | "end">,
+  coveringPeriods: Pick<WorkPeriod, "start" | "end" | "status">[],
+): StatusCoverageSegment[] {
+  const baseline = coveringPeriods.filter((item) => item.status === "included");
+  const potential = coveringPeriods.filter((item) => item.status === "potential");
+  return splitPeriodByCoverage(period, baseline).flatMap<StatusCoverageSegment>(
+    (segment) => {
+      if (segment.kind === "covered") return [{ ...segment, kind: "included" }];
+      return splitPeriodByCoverage(segment, potential).map((part) => ({
+        ...part,
+        kind: part.kind === "covered" ? "potential" : "uncovered",
+      }));
+    },
+  );
+}
+
 function union(ranges: Range[]): Range[] {
   const sorted = ranges
     .map((range) => ({ ...range }))

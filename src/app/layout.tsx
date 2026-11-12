@@ -4,6 +4,7 @@ import "@fontsource-variable/manrope";
 import "./globals.css";
 import "./experience.css";
 import "./flow-refinements.css";
+import "./citizen.css";
 
 export const metadata: Metadata = {
   title: {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s · Lata Pracy",
   },
   description:
-    "Poznaj fikcyjne historie pracy i sprawdź, które okresy warto zweryfikować w świetle zmian w 2026 roku. Niezależny prototyp demonstracyjny.",
+    "Autorski pulpit obywatela z usługą Lata Pracy. Poznaj fikcyjne historie, sprawdź wcześniejsze okresy i przygotuj podsumowanie dla kadr. Niezależny prototyp.",
   robots: { index: false, follow: false },
   applicationName: "Lata Pracy",
 };

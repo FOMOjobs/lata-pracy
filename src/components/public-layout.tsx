@@ -3,12 +3,17 @@ import { ArrowUpRight, LockKeyhole } from "lucide-react";
 import { Brand } from "./brand";
 import { LegalInfo } from "./legal-info";
 
-export function PublicHeader({ active }: { active?: "scenarios" | "demo" }) {
+export function PublicHeader({
+  active,
+}: {
+  active?: "scenarios" | "demo" | "about";
+}) {
   return (
     <header className="public-header">
       <div className="container header-inner">
         <Brand />
         <nav aria-label="Nawigacja główna">
+          <Link href="/">Pulpit obywatela</Link>
           <Link
             href="/demo"
             aria-current={active === "demo" ? "page" : undefined}
@@ -20,6 +25,12 @@ export function PublicHeader({ active }: { active?: "scenarios" | "demo" }) {
             aria-current={active === "scenarios" ? "page" : undefined}
           >
             Scenariusze
+          </Link>
+          <Link
+            href="/o-projekcie"
+            aria-current={active === "about" ? "page" : undefined}
+          >
+            O projekcie
           </Link>
         </nav>
         <span className="demo-pill">
